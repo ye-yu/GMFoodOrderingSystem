@@ -1,49 +1,49 @@
 Static Class Counter
 Begin
     Private Static receiptID: String
-	Public Static printReceipt(): Void
-		Load ('/serverside/php/pay.php?request=RECEIPT&receipt_id=' + receiptID)
-		Set result = Retrieve JSON string from the page
-		Declare content: Dictionary(String, String)
-		Set content = parse result as Dicionary(String, String)
-		Print content
-		Exit
+    Public Static printReceipt(): Void
+        Load ('/serverside/php/pay.php?request=RECEIPT&receipt_id=' + receiptID)
+        Set result = Retrieve JSON string from the page
+        Declare content: Dictionary(String, String)
+        Set content = parse result as Dicionary(String, String)
+        Print content
+        Exit
 
-	Public Static pay(method: Integer): Boolean
-		Load ('/serverside/php/pay.php?receipt_id=' + receiptID + '&method=' + method)
-		Retrieve payment status
-		Parse payment status as Boolean
-		Return payment status
-	
-	Public Static findOrderByTable(tableno: Integer): Array(String)
-		Load ('/serverside/php/pay.php?request=ORDERSTATUSES&table_no=' + tableno)
-		Set result = Retrieve JSON string from the page
-		Declare content: Array(String)
-		Set content = parse result as Array(String)
-		Return content
-	
-	Public Static findOrderByOrderID(id: Integer): Boolean
-		Declare order: Ordering
-		Set order = new Ordering(TRUE)
-		Declare isExisting: Boolean
-		Set isExisting = Process order.loadOrder(id)
-		If isExisting, Then
-			If order.getOrderReadyStatus, Then
-				Process generateReceiptID(order.getOrderID())
-				Return TRUE
-			End If
-		End If
-		Return FALSE
-	
-	Public Static generateReceiptID(orderID: Integer): Void
-		Load ('/serverside/php/pay.php?request=GENERATE&orderID=' + orderID)
-		Retrieve id from the page
-		Set receiptID = id
-		Exit
-		
-	Public Static emptyReceiptID(): Void
-		Set receiptID = NULL
-		Exit
+    Public Static pay(method: Integer): Boolean
+        Load ('/serverside/php/pay.php?receipt_id=' + receiptID + '&method=' + method)
+        Retrieve payment status
+        Parse payment status as Boolean
+        Return payment status
+
+    Public Static findOrderByTable(tableno: Integer): Array(String)
+        Load ('/serverside/php/pay.php?request=ORDERSTATUSES&table_no=' + tableno)
+        Set result = Retrieve JSON string from the page
+        Declare content: Array(String)
+        Set content = parse result as Array(String)
+        Return content
+
+    Public Static findOrderByOrderID(id: Integer): Boolean
+        Declare order: Ordering
+        Set order = new Ordering(TRUE)
+        Declare isExisting: Boolean
+        Set isExisting = Process order.loadOrder(id)
+        If isExisting, Then
+            If order.getOrderReadyStatus, Then
+                Process generateReceiptID(order.getOrderID())
+                Return TRUE
+            End If
+        End If
+        Return FALSE
+
+    Public Static generateReceiptID(orderID: Integer): Void
+        Load ('/serverside/php/pay.php?request=GENERATE&orderID=' + orderID)
+        Retrieve id from the page
+        Set receiptID = id
+        Exit
+        
+    Public Static emptyReceiptID(): Void
+        Set receiptID = NULL
+        Exit
 Exit
 
 /*
