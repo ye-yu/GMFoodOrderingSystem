@@ -14,25 +14,26 @@ Begin
 			Set custID = Process getIDFromDatabase()
 		EndIf
 		Exit
+		
 	Customer(name: String)
 		Set custID = Process getIDFromDatabase(name)
 		Exit
 	
-	Public addOrder(ord: Order)
+	Public addOrder(ord: Order): Void
 		Set order = ord
 		Exit
 		
-	Public cancelOrder()
+	Public cancelOrder(): Void
 		Set order = NULL
 		Exit
 		
-	Public getIDFromDatabase()
-		Load ('/customer.php?request=ID')
+	Public getIDFromDatabase(): String
+		Load ('/serverside/php/customer.php?request=ID')
 		Retrieve ID from the page
 		Return ID
 		
-	Public getIDfromDatabase(name: String)
-		Load ('/customer.php?findID=' + name)
+	Public getIDfromDatabase(name: String): String
+		Load ('/serverside/php/customer.php?findID=' + name)
 		Retrieve ID from the page
 		Return ID
 	
@@ -41,33 +42,33 @@ Begin
 		Set orders = Process stingify(order)
 		Declare customerInformation: Array(String)
 		Append custID, custName, custPhoneNo, orders to customerInformation
-		Connect to ('/customer.php?action=PLACE_ORDER') by connection method POST with contents (customerInformation)
+		Connect to ('/serverside/php/customer.php?action=PLACE_ORDER') by connection method POST with contents (customerInformation)
 		Retrive status from the page
 		Set status = Parse status as Boolean
 		Return status 
 		
 	//Get methods
-	Public getCustID()
+	Public getCustID(): String
 		Return custID
 	
-	Public getCustName()
+	Public getCustName(): String
 		Return custName
 	
-	Public getCustPhoneNo()
+	Public getCustPhoneNo(): String
 		Return custPhoneNo
 		
-	Public getOrder()
+	Public getOrder(): Array(order)
 		Return order
 		
 	//Set methods		
-	Public setCustName(name: String)
+	Public setCustName(name: String): Void
 		Set custName = name
-		Load ('/customer.php?id=' + custID + '&name=' + custName)
+		Load ('/serverside/php/customer.php?id=' + custID + '&name=' + custName)
 		Exit
 		
-	Public setCustPhoneNo(phoneNo: String)
+	Public setCustPhoneNo(phoneNo: String): Void
 		Set custPhoneNo = phoneNo
-		Load ('/customer.php?id=' + custID + '&phone_no=' + custPhoneNo)
+		Load ('/serverside/php/customer.php?id=' + custID + '&phone_no=' + custPhoneNo)
 		Exit
 
 Exit

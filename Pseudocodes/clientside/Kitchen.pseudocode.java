@@ -2,7 +2,7 @@ Static Class Kitchen
 Begin
 	Private Static foodQueue: Dictionary(String, Array(Food))
 	
-	Public Static retrieveOrderFromDatabase()
+	Public Static retrieveOrderFromDatabase(): Void
 		Load('/order.php?request=ORDER&order_id=ALL&ready_status=FALSE')
 		Declare orders: Dictionary(String, Array(Food))
 		Declare content: Dictionary(String, String)
@@ -16,7 +16,7 @@ Begin
 		Merge orders with foodQueue
 		Exit
 	
-	Public Static updateOrderStatus(orderID: String, foodID: String, status: String)
+	Public Static updateOrderStatus(orderID: String, foodID: String, status: String): Void
 		Load ('/order.php?request=UPDATEORDER&order_id=' + orderID + '&food_ID=' + foodID + '&status=' + status)
 		Retrieve successful from the page
 		If Not successful, Then

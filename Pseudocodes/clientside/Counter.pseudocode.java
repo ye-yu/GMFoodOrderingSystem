@@ -1,8 +1,8 @@
 Static Class Counter
 Begin
-    Private Static receiptID
+    Private Static receiptID: String
 	Public Static printReceipt(): Void
-		Load ('pay.php?request=RECEIPT&receipt_id=' + receiptID)
+		Load ('/serverside/php/pay.php?request=RECEIPT&receipt_id=' + receiptID)
 		Set result = Retrieve JSON string from the page
 		Declare content: Dictionary(String, String)
 		Set content = parse result as Dicionary(String, String)
@@ -10,13 +10,13 @@ Begin
 		Exit
 
 	Public Static pay(method: Integer): Boolean
-		Load ('/pay.php?receipt_id=' + receiptID + '&method=' + method)
+		Load ('/serverside/php/pay.php?receipt_id=' + receiptID + '&method=' + method)
 		Retrieve payment status
 		Parse payment status as Boolean
 		Return payment status
 	
 	Public Static findOrderByTable(tableno: Integer): Array(String)
-		Load ('pay.php?request=ORDERSTATUSES&table_no=' + tableno)
+		Load ('/serverside/php/pay.php?request=ORDERSTATUSES&table_no=' + tableno)
 		Set result = Retrieve JSON string from the page
 		Declare content: Array(String)
 		Set content = parse result as Array(String)
@@ -36,7 +36,7 @@ Begin
 		Return FALSE
 	
 	Public Static generateReceiptID(orderID: Integer): Void
-		Load ('/pay.php?request=GENERATE&orderID=' + orderID)
+		Load ('/serverside/php/pay.php?request=GENERATE&orderID=' + orderID)
 		Retrieve id from the page
 		Set receiptID = id
 		Exit

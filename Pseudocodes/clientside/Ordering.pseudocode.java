@@ -8,17 +8,17 @@ Begin
 	Private orderReadyStatus: Boolean
 	Private orderFoods: Food[]
 	
-	Public Order()
+	Public Ordering()
 		Set orderID = Process getIDFromDatabase()
 		Exit
 	
-	Public Order(createEmpty: Boolean): Void
+	Public Ordering(createEmpty: Boolean)
 		If Not createEmpty, Then
 			Set orderID = Process getIDFromDatabase()
 		End If
 		Exit
 
-	Public getIDFromDatabase()
+	Public getIDFromDatabase(): Void
 		Load ('/order.php?request=ID')
 		Retrieve ID from the page
 		Return ID
@@ -46,49 +46,61 @@ Begin
 		Return TRUE
 		Exit
 
-	Public getDataFromDatabase(id: Integer)
+	Public getDataFromDatabase(id: Integer): Dictionary(String, String)
 		Load('/order.php?request=ORDER&order_id=' + id)
-		Set result = Retrieve JSON string from the page
+		Set content = Retrieve JSON string from the page
+		Declare result: Dictionary(String, String)
+		Set result = Parse Dictionary(String, String) from content
 		Return result
 	
-	Public addMenu(food: Food)
+	Public addMenu(food: Food): Void
 		Append food to foodlist[]
 		calculateTotal()
 		Exit
 	
-	Public removeMenu(food: Food)
+	Public removeMenu(food: Food): Void
 		Remove food from foodlist[]
 		calculateTotal
 		Exit
 	
-	Private calculateTotal()
+	Private calculateTotal(): Void
 		Load ('/order.php?id=' + orderID + '&request=total')
 		Retrieve total from the page
 		Set orderTotal = total
 		Return
 	
 	//Get Methods
-	Public getOrderID()
+	Public getOrderID(): String
 		Return orderID
 		
 	Public getTotal()
 		Return orderTotal
 	
 	Public getOrderReadyStatus()
+		Load ('/serverside/php/order.php?request=STATUS&order_id=' + orderID)
+		Retrieve content: String from the page
+		Set orderReadyStatus = Parse Boolean from content
 		Return orderReadyStatus
 		
 	Public getFoods(): Array(Food)
 		Return orderFoodsString
 	
+	Public getFeedBack(): String
+		Return orderFeedback
+	
 	//Set Methods
-	Public setDate(date: Date)
-		orderDate = date
+	Public setDate(date: Date): Void
+		Set orderDate = date
 		Exit
 	
-	Public setOrderReadyStatus(status: Boolean)
-		Load ('/order.php?id=' + orderID + '&set_status=' + status)
-		Set orderReadyStatus = status
+	Public setPickTime(time: Time): Void
+		Set orderPickTime = time
 		Exit
+		
+	Public setFeedback(feed: String): Void
+		Set orderFeedback = feed
+		Exit
+
 Exit
 
 /*  
@@ -106,9 +118,11 @@ Remarks
 		b) getDataFromDatabase(id: Integer)
 		c) getIDFromDatabase()
 		d) calculateTotal()
-		e) setOrderReadyStatus(status: Boolean)
-		f) getOrderReadyStatus()
-		g) getFoods()
+		e) getOrderReadyStatus()
+		f) getFoods()
+		g) setPickTime(time: Time)
+		h) setFeedback(feed: String)
+		i) getFeedBack()
 
 	vi. Remove these attributes:
 		a) orderStatus
