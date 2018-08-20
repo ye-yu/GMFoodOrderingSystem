@@ -3,7 +3,9 @@ Begin
     Private foodID: String
     Private foodName: String
     Private foodPrice: Float
-    Pricate foodDescription: String
+	Private foodType: String
+    Private foodDescription: String
+	Private foodImageLink: String
 
     Food(id: String): Void
         If id != NULL, Then
@@ -23,7 +25,9 @@ Begin
         Set foodID = id
         Set foodName = food['name']
         Set foodPrice = Parse Float from food['price']
+        Set foodType = food['type']
         Set foodDescription = food['description']
+        Set foodImageLink = food['link']
 
     //Get methods
     Public getFoodID(): String
@@ -38,6 +42,11 @@ Begin
     Public getFoodDescription: String
         Return foodDecription
 
+    Public getFoodType: String
+        Return foodType
+
+	Public getImageLink(): String
+		Return foodImageLink
     //Set methods
     Public setFoodID(id: String): Void
         Set foodID = id
@@ -54,6 +63,14 @@ Begin
     Public setFoodDescription(desc: String): Void
         Set foodDecription = desc
         Exit
+	
+	Public setFoodImageLink(link: String): Void
+		Set foodImageLink = link
+		Exit
+
+	Public setFoodType(type: String): Void
+		Set foodType = type
+		Exit
         
 Exit
 

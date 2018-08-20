@@ -33,6 +33,7 @@ Begin
                 Set Food = New Food(foodListID[i])
                 Append food into foods
             End Loop
+		End If
         Return foods
 Exit
 
