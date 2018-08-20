@@ -9,14 +9,14 @@ Begin
         If id != NULL, Then
             Process loadFood(id)
         Else
-            Load ('/order.php?request=ID')
+            Load ('/serverside/php/order.php?request=ID')
             Retrieve ID: String from the page
             Set foodID = ID
         End If
         Exit
         
     Public loadFood(id: String): Void
-        Load ('/order.php?request=FOOD&food_ID=' + id)
+        Load ('/serverside/php/order.php?request=FOOD&id=' + id)
         Retrieve content: String from the page
         Declare food: Dictionary(String, String)
         Set food = Parse Dictionary(String, String) from content

@@ -7,7 +7,7 @@ Begin
         Return tablenumber
 
     Public Static reserveTable(tableno: Integer): Boolean
-        Load ('/table.php?request=RESERVE&table_number=' + tableno)
+        Connect to ('/table.php?action=RESERVE') by connection method 'post' with content('table number': tableno)
         Retrieve successful: Boolean from the page
         Return successful
 

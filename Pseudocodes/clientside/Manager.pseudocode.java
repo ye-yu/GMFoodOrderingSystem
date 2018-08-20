@@ -4,7 +4,7 @@ Begin
     Private foodOfInterest: Food
 
     Public Static loginToDatabase(username: String, password: String): Void
-        Connect to ('/admin.php?') with connection method POST with content('USERNAME': username, 'PASSWORD': password)
+        Connect to ('/admin.php?action=LOGIN') with connection method POST with content('username': username, 'password': password)
         Retrieve successful: Boolean from the page
         Set loginSuccessful = successful
         Exit

@@ -5,12 +5,12 @@ Begin
         Load ('/serverside/php/pay.php?request=RECEIPT&receipt_id=' + receiptID)
         Set result = Retrieve JSON string from the page
         Declare content: Dictionary(String, String)
-        Set content = parse result as Dicionary(String, String)
+        Set content = parse result as Dictionary(String, String)
         Print content
         Exit
 
     Public Static pay(method: Integer): Boolean
-        Load ('/serverside/php/pay.php?receipt_id=' + receiptID + '&method=' + method)
+        Connect to ('/serverside/php/pay.php?action=PAY') by connection method 'post' with contents ('receipt_id': receiptID, 'method', method)
         Retrieve payment status
         Parse payment status as Boolean
         Return payment status
@@ -36,7 +36,7 @@ Begin
         Return FALSE
 
     Public Static generateReceiptID(orderID: Integer): Void
-        Load ('/serverside/php/pay.php?request=GENERATE&orderID=' + orderID)
+        Connect to ('/serverside/php/pay.php?action=GENERATE') by connection method 'post' with content ('order_id' : orderID)
         Retrieve id from the page
         Set receiptID = id
         Exit

@@ -12,7 +12,7 @@ reserveTable(numberOfCustomer)
 	Set popup.attribute = 'noshow'
 	Set popup = document.getElementById('reservingLoading')
 	Set popup.attribute = 'show'
-	Load ('/table.php?request=RESERVATION&no_of_customer' + numberOfCustomer)
+	Load ('/table.php?request=RESERVATION&no_of_customer=' + numberOfCustomer)
 	Retrieve tableNumber: Integer from the page
 	Set popup.attribute = 'noshow'
 	Set popup = document.getElementById('reservation')

@@ -68,7 +68,7 @@ changeSplitTheBillContent(dismissNotification: Boolean)
     EndIf
     Exit
 
-refreshCustomerFoodOrder()
+refreshCustomerAndFoodOrder()
     Declare customersDOM: document
     Set customersDOM = document.getElementById('customerOrders')
     For Loop: i = the range of noOfCustomer
@@ -82,7 +82,7 @@ refreshCustomerFoodOrder()
     Exit
 
 startOrdering(customerNumber: Integer)
-    Save all global attribes to cookie
+    Save all global attributes to cookie
     Declare form: document.createElement('form')
     Set form = createForm(form, customerNumber)
     Process form.submit()
@@ -94,12 +94,17 @@ createForm(form: document, customerNumber: Integer)
     Declare subElement: document
     Set subElement = document.createElement('input')
     Set subElement.type = 'hidden'
+    Set subElement.name = 'order from'
+    Set subElement.value = 'table'
+    Process form.appendChild(subElement)
+    Set subElement = document.createElement('input')
+    Set subElement.type = 'hidden'
     Set subElement.name = 'customer'
     Set subElement.value = customerNumber + " " + tableNumber
     Process form.appendChild(subElement)
     Set subElement = document.createElement('input')
     Set subElement.type = 'hidden'
     Set subElement.name = 'orders'
-    Set subElement.value = JSON.stringify(customersWithOrder[])
+    Set subElement.value = JSON.stringify(customersWithOrder[customerNumber])
     Process form.appendChild(subElement)
     Return form

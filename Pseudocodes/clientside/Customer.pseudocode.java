@@ -33,7 +33,7 @@ Begin
         Return ID
         
     Public getIDfromDatabase(name: String): String
-        Load ('/serverside/php/customer.php?findID=' + name)
+        Load ('/serverside/php/customer.php?request=FIND_ID&name=' + name)
         Retrieve ID from the page
         Return ID
 
@@ -63,12 +63,12 @@ Begin
     //Set methods		
     Public setCustName(name: String): Void
         Set custName = name
-        Load ('/serverside/php/customer.php?id=' + custID + '&name=' + custName)
+        Load ('/serverside/php/customer.php?action=SET_NAME&id=' + custID + '&name=' + custName)
         Exit
         
     Public setCustPhoneNo(phoneNo: String): Void
         Set custPhoneNo = phoneNo
-        Load ('/serverside/php/customer.php?id=' + custID + '&phone_no=' + custPhoneNo)
+        Load ('/serverside/php/customer.php?action=SET_PHONE_NO&id=' + custID + '&phone_no=' + custPhoneNo)
         Exit
 
 Exit

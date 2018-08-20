@@ -18,9 +18,9 @@ CREATE TABLE `foodorder`.`food`(
 
 CREATE TABLE `foodorder`.`diningtable`(
     `tableno` SMALLINT UNSIGNED NOT NULL,
-    `tableStatus` VARCHAR(8) NOT NULL DEFAULT 'Ready',
+    `tableStatus` VARCHAR(10) NOT NULL DEFAULT 'Ready',
     `tabletype` VARCHAR(50) NULL,
-    `seatQuantity` SMALLINT UNSIGNED NULL,
+    `seatQuantity` TINYINT UNSIGNED NULL,
     PRIMARY KEY(`tableno`)
 ) ENGINE = InnoDB; 
 

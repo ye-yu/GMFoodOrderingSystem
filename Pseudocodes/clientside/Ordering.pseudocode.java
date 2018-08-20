@@ -10,16 +10,18 @@ Begin
 
     Public Ordering()
         Set orderID = Process getIDFromDatabase()
+		Set orderDate = Date now
         Exit
 
     Public Ordering(createEmpty: Boolean)
         If Not createEmpty, Then
             Set orderID = Process getIDFromDatabase()
         End If
+		Set orderDate = Date now
         Exit
 
     Public getIDFromDatabase(): Void
-        Load ('/order.php?request=ID')
+        Load ('/serverside/php/order.php?request=ID')
         Retrieve ID from the page
         Return ID
         
@@ -47,7 +49,7 @@ Begin
         Exit
 
     Public getDataFromDatabase(id: Integer): Dictionary(String, String)
-        Load('/order.php?request=ORDER&order_id=' + id)
+        Load('/serverside/php/order.php?request=ORDER&id=' + id)
         Set content = Retrieve JSON string from the page
         Declare result: Dictionary(String, String)
         Set result = Parse Dictionary(String, String) from content
@@ -64,7 +66,7 @@ Begin
         Exit
 
     Private calculateTotal(): Void
-        Load ('/order.php?id=' + orderID + '&request=total')
+        Load ('/serverside/php/order.php?request=TOTAL&id=' + orderID)
         Retrieve total from the page
         Set orderTotal = total
         Return
@@ -77,7 +79,7 @@ Begin
         Return orderTotal
 
     Public getOrderReadyStatus()
-        Load ('/serverside/php/order.php?request=STATUS&order_id=' + orderID)
+        Load ('/serverside/php/order.php?request=STATUS&id=' + orderID)
         Retrieve content: String from the page
         Set orderReadyStatus = Parse Boolean from content
         Return orderReadyStatus
@@ -87,6 +89,9 @@ Begin
 
     Public getFeedBack(): String
         Return orderFeedback
+		
+	Public getPickTime(): Time
+		Return orderPickTime
 
     //Set Methods
     Public setDate(date: Date): Void
@@ -122,6 +127,7 @@ Remarks
 		g) setPickTime(time: Time)
 		h) setFeedback(feed: String)
 		i) getFeedBack()
+		j) getPickTime()
 
 	vi. Remove these attributes:
 		a) orderStatus

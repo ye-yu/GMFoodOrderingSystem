@@ -17,7 +17,7 @@ Begin
         Exit
 
     Public Static updateOrderStatus(orderID: String, foodID: String, status: String): Void
-        Load ('/order.php?request=UPDATEORDER&order_id=' + orderID + '&food_ID=' + foodID + '&status=' + status)
+        Connect to ('/order.php?action=UPDATE_ORDER') by connection method 'post' with contents ('order_id': orderID, 'food_ID': foodID)
         Retrieve successful from the page
         If Not successful, Then
             Process updateOrderStatus(orderID, foodID, status)
