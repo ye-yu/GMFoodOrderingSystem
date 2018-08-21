@@ -15,8 +15,8 @@ Begin
         EndIf
         Exit
         
-    Customer(name: String)
-        Set custID = Process getIDFromDatabase(name)
+    Customer(name: String,  phoneNo: String)
+        Set custID = Process getIDFromDatabase(name, phoneNo)
         Exit
 
     Public addOrder(ord: Order): Void
@@ -32,8 +32,8 @@ Begin
         Retrieve ID from the page
         Return ID
         
-    Public getIDfromDatabase(name: String): String
-        Load ('/serverside/php/customer.php?request=FIND_ID&name=' + name)
+    Public getIDfromDatabase(name: String, phoneNo: String): String
+        Load ('/serverside/php/customer.php?request=FIND_ID&name=' + name + '&phone_no=' + phoneNo)
         Retrieve ID from the page
         Return ID
 

@@ -2,7 +2,7 @@ Declare noOfCustomer: Integer
 Declare tableNumber: Integer
 Declare reserved: Boolean
 Declare customers: Array(Customer)
-Declare customersWithOrder: Dictionary(Customer, Ordering)
+Declare customersWithOrder: Dictionary(String, Ordering)
 
 //Hardcoded 
 Set tableNumber = 1
@@ -108,3 +108,5 @@ createForm(form: document, customerNumber: Integer)
     Set subElement.value = JSON.stringify(customersWithOrder[customerNumber])
     Process form.appendChild(subElement)
     Return form
+
+Process waitingForReservation()

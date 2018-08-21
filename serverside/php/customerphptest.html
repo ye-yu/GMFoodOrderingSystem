@@ -1,0 +1,83 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+<!--	<script>
+	class customer
+	{
+		constructor()
+		{
+			this.cid = 0;
+			this.setid = function(id) {this.cid = id};
+			sendRequest('GET', '', 'http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/serverside/php/customer.php?request=ID', this.setid);
+			this.cname = "";
+			this.cphoneNo = "";
+		}
+		
+		get id()
+		{
+			return this.cid;
+		}
+		
+		get name()
+		{
+			return this.cname;
+		}
+		
+		get phoneNo()
+		{
+			return this.cphoneNo;
+		}
+	}
+	function sendRequest(method, params, URL, toSet)
+	{
+		var xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() {
+			if (xhttp.readyState == 4 && xhttp.status == 200) {
+				console.log(xhttp.responseText);
+				toSet(xhttp.responseText);
+			}
+		};
+		xhttp.open(method, URL, true);
+		if (method == 'POST')
+			xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+		xhttp.send(params);
+	}
+	
+	function submitOnClick()
+	{
+	}
+	
+	</script> -->
+	</head>
+	<body>
+		<h1>Request customer ID</h1>
+		<form method='get' action='customer.php'>
+			<input type='hidden' name='request' value='FIND_ID' />
+			<div>
+				Name: <input type='text' placeholder='Enter name to find by ID' name='name' />
+			</div>
+			<div>
+				Phone number: <input type='text' placeholder='Enter phone number to find by ID' name='phone_no' />
+			</div>
+			<div>
+				<input type='submit' value='Submit' />
+			</div>
+		</form>
+		<form method='post' action='customer.php?action=CREATE'>
+			<input type='hidden' name='action' value='CREATE'>
+			<input type='submit' value='Create customer'>
+		</form>
+		<h1>Edit customer name</h1>
+		<form method='post' action='customer.php?action=SET_NAME'>
+			<div>
+				ID: <input type='text' placeholder='this should be handled by app' name='id' />
+			</div>
+			<div>
+				Name: <input type='text' placeholder='Enter new name' name='name' />
+			</div>
+			<div>
+				<input type='submit' value='Submit' />
+			</div>
+		</form>
+	</body>
+</html>
