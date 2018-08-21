@@ -42,9 +42,32 @@
 			xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 		xhttp.send(params);
 	}
-	
+	var c = '';
+	sendRequest('GET','','', function(input){c = input;})
 	function submitOnClick()
 	{
+	}
+	
+	class a
+	{
+		constructor()
+		{
+			this.aclass = 'nothing';
+		}
+	}
+	class b
+	{
+		constructor()
+		{
+			this.aclass = new a;
+		}
+	}
+	class c
+	{
+		constructor()
+		{
+			this.aclass = new b;
+		}
 	}
 	
 	</script> -->
@@ -79,5 +102,49 @@
 				<input type='submit' value='Submit' />
 			</div>
 		</form>
+		
+		<hr />
+		<h1>Get orders</h1>
+		<form method='get' action='order.php'>
+			<input type='hidden' name='request' value='ORDER' />
+			<input type='hidden' name='order_id' value='ALL' />
+			<input type='hidden' name='ready_status' value='FALSE' />
+			<div>
+				<input type='submit' value='Get list of orderid' />
+			</div>
+		</form>
+		<h1>Get order info</h1>
+		<form method='get' action='order.php'>
+			<input type='hidden' name='request' value='ORDER' />
+			<div>
+				ID: <input type='text' placeholder='this should be handled by app' name='order_id' />
+			</div>
+			<div>
+				<input type='submit' value='Get list of orderid' />
+			</div>
+		</form>
+
+		<h1>Update food of order info</h1>
+		<form method='post' action='order.php?action=UPDATE_ORDER'>
+			<input type='hidden' name='request' value='ORDER' />
+			<div>
+				Order ID: <input type='text' placeholder='this should be handled by app' name='order_id' />
+			</div>
+			<div>
+				Food ID: <input type='text' placeholder='this should be handled by app' name='food_id' />
+			</div>
+			<div>
+				Status: 
+				<select name='status'>
+					<option value='Accepted'>Accepted</option>
+					<option value='Preparing'>Preparing</option>
+					<option value='Prepared'>Prepared</option>
+				</select>
+			</div>
+			<div>
+				<input type='submit' value='Get list of orderid' />
+			</div>
+		</form>
+
 	</body>
 </html>

@@ -49,7 +49,7 @@ Begin
         Exit
 
     Public getDataFromDatabase(id: Integer): Dictionary(String, String)
-        Load('/serverside/php/order.php?request=ORDER&id=' + id)
+        Load('/serverside/php/order.php?request=ORDER&order_id=' + id)
         Set content = Retrieve JSON string from the page
         Declare result: Dictionary(String, String)
         Set result = Parse Dictionary(String, String) from content

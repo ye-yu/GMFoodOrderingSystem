@@ -47,13 +47,14 @@ dismissWaiting()
 
 splitTheBillYesOnClick()
     For Loop: i = the range of noOfCustomer
-        Set customers[i] = new Customer(tableNumber + "" + i)
+        Set customers[i] = new Customer(tableNumber + " " + i)
         Set customersWithOrder[customers[i]] = new Ordering()
     End Loop
     changeSplitTheBillContent(FALSE) // this means yes button is clicked
     Exit
 
 splitTheBillNoOnClick()
+	customers[0] = new Customer(tableNumber + " " + 0)
     changeSplitTheBillContent(TRUE) // 1this means no button
     Exit
     
