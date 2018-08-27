@@ -25,29 +25,22 @@ if(isset($queries['request']))
 	//print_r($connection);
 	switch($queries['request'])
 	{
-		case "ID":
-			do
+		case "STATUS":
+			$row = NULL;
+			if(isset($queries['seat_size']))
 			{
-				$res = $connection -> query("call generate_id('customer', @id, @isunique)");
-				$res = $connection -> query("select @id, @isunique");
-				$row = $res -> fetch_assoc();
-				if($row['@isunique'] == "0")
-					continue;
-				echo($row['@id']);
-				break;
-			} while(true);
-			break;
-		case "FIND_ID":
-			if (isset($queries['phone_no']))
-				$_SESSION['cphone_no'] = $queries['phone_no'];
-			else
-				$_SESSION['cphone_no'] = "";
-			$_SESSION['cname'] = $queries['name'];
-			showLog ("ID search by name: ". $_SESSION['cname']. " and " . $_SESSION['cphone_no']. " is requested.");
-			$res = $connection -> query("select find_cust_id('" . $_SESSION['cname'] . "' ,'" . $_SESSION['cphone_no'] . "') as id");
-			$rows = $res->fetch_assoc();
-			$_SESSION['cid'] = $rows['id'];
-			echo ($_SESSION['cid']);
+				$res = $connection -> query("select tableno from diningtable where seatQuantity <= " . $queries['seat_size']);
+				$rows = $res -> fetch_assoc();
+				$row = $rows['tableno'];
+				
+			}
+			else if(isset($queries['table_no']))
+			{
+				$res = $connection -> query("select tableStatus from diningtable where tableno = " . $queries['table_no']);
+				$rows = $res -> fetch_assoc();
+				$row = $rows['tableStatus'];
+			}
+			echo($row);
 			break;
 	}
 	
@@ -58,14 +51,19 @@ elseif(isset($queries['action']))
 	makeConnection();
 	switch($queries['action'])
 	{
-		case "PLACE_ORDER":
-			$_SESSION['cid'] = $_POST['cust_id'];
-			$_SESSION['cname'] = $_POST['cust_name'];
-			$_SESSION['cphone_no'] = $_POST['cust_phone_no'];
-			$_SESSION['corder'] = $_POST['cust_order'];
-			
-			$order = json_decode($_SESSION['corder']);
-			print_r($order);
+		case "RESERVE":
+			$req = $connection -> query("update diningtable set tableStatus = 'Req ".$_POST['no_of_cust']."' where tableno = ". $_POST['table_no']);
+			if($req)
+				echo(true);
+			else 
+				echo (0);
+			break;
+		case "UNRESERVE":
+			$req = $connection -> query("update diningtable set tableStatus = 'Ready' where tableno = ". $_POST['table_no']);
+			if($req)
+				echo(true);
+			else 
+				echo (0);
 			break;
 		case "SET_NAME":
 			showLog ("Name of customer is set. ");

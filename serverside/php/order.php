@@ -32,34 +32,86 @@ if(isset($queries['request']))
 	switch($queries['request'])
 	{
 		case "ID":
-			echo ("ID generator is requested.");
+			do
+			{
+				$res = $connection -> query("call generate_id('". $queries['from'] ."', @id, @isunique)");
+				$res = $connection -> query("select @id, @isunique");
+				$row = $res -> fetch_assoc();
+				if($row['@isunique'] == "0")
+					continue;
+				echo($row['@id']);
+				break;
+			} while(true);
 			break;
 		case "ORDER":
-			if (isset($queries['ready_status']))
+			if (isset($queries['unpaid']))
 			{
 				if ($queries['order_id'] === "ALL")
 				{
-					$res = $connection -> query("select orderid from ordering where orderReadyStatus = " . $queries['ready_status']);
+					$res = $connection -> query("select orderid from ordering where orderReadyStatus = FALSE and orderid not in (select orderid from receipt)");
 					$rows = array();
 					while ($row = $res -> fetch_assoc())
 						array_push($rows, $row['orderid']);
-					showpr($rows);
+					echo(json_encode($rows));
 				}
 			}
 			else
 			{
 				$res = $connection -> query("select * from ordering where orderid = '" . $queries['order_id']. "'");
 				$row = $res -> fetch_assoc();
-				$res = $connection -> query("select foodid from orderlist where orderid = '" . $queries['order_id']. "'");
-				$foodids = array();
+				$res = $connection -> query("select foodid, orderQuantity from orderlist where orderid = '" . $queries['order_id']. "'");
+				$foodids = [];
 				while($rows = $res -> fetch_assoc())
-					array_push($foodids, $rows['foodid']);
+					$foodids[$rows['foodid']] = $rows['orderQuantity'];
 				$row['foodlistid'] = $foodids;
 				echo (json_encode($row));
 			}
 			break;
+		case "TOTAL":
+			$res = $connection -> query("select orderTotal from ordering where orderid = '" . $queries['order_id']. "'");
+			$row = $res -> fetch_assoc();
+			echo($row['orderTotal']);
+			break;
+		case "STATUS":
+			$res = $connection -> query("select orderReadyStatus from ordering where orderid = '" . $queries['order_id']. "'");
+			$row = $res -> fetch_assoc();
+			echo($row['orderReadyStatus']);
+			break;
+		case "FOOD":
+			if ($queries['food_id'] === "ALL")
+			{
+				if(isset($queries['group_by']))
+				{
+					$res = $connection -> query("SELECT `foodtype` FROM `food` GROUP BY foodtype");
+					$row = [];
+					while($rows = $res -> fetch_assoc())
+					{
+						$row[$rows['foodtype']] = array();
+					}
+					$res = $connection -> query("SELECT * FROM `food`");
+					while($rows = $res -> fetch_assoc())
+					{
+						array_push($row[$rows['foodtype']], $rows);
+					}
+				}
+				else
+				{
+					$res = $connection -> query("select * from food");
+					$row = array();
+					while($rows = $res -> fetch_assoc())
+					{
+						array_push($row, $rows);
+					}
+				}
+			}
+			else
+			{
+				$res = $connection -> query("select * from food where foodid = '" . $queries['food_id']. "'");
+				$row = $res -> fetch_assoc();
+			}
+			echo(json_encode($row));
+			break;
 	}
-	
 }
 
 elseif(isset($queries['action']))
@@ -80,40 +132,6 @@ elseif(isset($queries['action']))
 			while($row = $req -> fetch_assoc())
 				showpr($row);
 			showLog ("Update of order is performed.");
-			break;
-		case "SET_NAME":
-			showLog ("Name of customer is set. ");
-			$_SESSION['cid'] = $_POST['id'];
-			$_SESSION['cname'] = $_POST['name'];
-			$req = $connection -> query("update customer set customername = '".$_SESSION['cname']."' where customerid = '". $_SESSION['cid'] ."'");
-			if($req)
-				echo(true);
-			else 
-				echo (0);
-			break;
-			
-		case "FEEDBACK":
-			showLog ("Feedback of customer is sent.");
-			break;
-		case "SET_PHONE_NO":
-			showLog ("Phone number of customer is set.");
-			$_SESSION['cid'] = $_POST['id'];
-			$_SESSION['cphone_no'] = $_POST['phone_no'];
-			$req = $connection -> query("update customer set customerphoneno = '".$_SESSION['cphone_no']."' where customerid = '". $_SESSION['cid'] ."'");
-			if($req)
-				echo(true);
-			else 
-				echo (0);
-			break;
-			break;
-		case "CREATE":
-			//print_r($_POST);
-			showLog ("Customer info is inserted into database.");
-			$res = $connection -> query("insert into customer values('" . $_SESSION['cid'] ."','". $_SESSION['cname']."','".$_SESSION['cphone_no']."')");
-			if (!$res)
-				echo (0);
-			else
-				echo (true);
 			break;
 	}
 }

@@ -120,7 +120,7 @@
 				ID: <input type='text' placeholder='this should be handled by app' name='order_id' />
 			</div>
 			<div>
-				<input type='submit' value='Get list of orderid' />
+				<input type='submit' value='Get order info' />
 			</div>
 		</form>
 
@@ -145,6 +145,115 @@
 				<input type='submit' value='Get list of orderid' />
 			</div>
 		</form>
-
+		<h1>Get order total</h1>
+		<form method='get' action='order.php'>
+			<input type='hidden' name='request' value='TOTAL' />
+			<div>
+				ID: <input type='text' placeholder='this should be handled by app' name='order_id' />
+			</div>
+			<div>
+				<input type='submit' value='Find total' />
+			</div>
+		</form>
+		<h1>Get order status</h1>
+		<form method='get' action='order.php'>
+			<input type='hidden' name='request' value='STATUS' />
+			<div>
+				ID: <input type='text' placeholder='this should be handled by app' name='order_id' />
+			</div>
+			<div>
+				<input type='submit' value='Find status' />
+			</div>
+		</form>
+		<h1>Get food info</h1>
+		<form method='get' action='order.php'>
+			<input type='hidden' name='request' value='FOOD' />
+			<div>
+				ID: <input type='text' placeholder='this should be handled by app' name='food_id' />
+			</div>
+			<div>
+				<input type='submit' value='Find food' />
+			</div>
+		</form>
+		<h1>Get food by category</h1>
+		<form method='get' action='order.php'>
+			<input type='hidden' name='request' value='FOOD' />
+			<input type='hidden' name='group_by' value='CATEGORY' />
+			<input type='hidden' name='food_id' value='ALL' />
+			<div>
+				<input type='submit' value='Find food' />
+			</div>
+		</form>
+		<hr />
+		<h1>Record invoice</h1>
+		<form method='post' action='pay.php?action=RECORD'>
+			<div>
+				ID: <input type='text' placeholder='Order ID' name='order_id' />
+			</div>
+			<div>
+				<input type='submit' value='Record receipt id' />
+			</div>
+		</form>
+		<h1>Unrecord invoice</h1>
+		<form method='post' action='pay.php?action=CANCEL_RECORD'>
+			<div>
+				ID: <input type='text' placeholder='Order ID' name='order_id' />
+			</div>
+			<div>
+				<input type='submit' value='Record receipt id' />
+			</div>
+		</form>
+		<h1>Get unpaid orders at table</h1>
+		<form method='get' action='pay.php'>
+			<input type='hidden' name='request' value='UNPAID_ORDERS' />
+			<div>
+				Table number: <input type='text' placeholder='Table number' name='table_no' />
+			</div>
+			<div>
+				<input type='submit' value='Get order id' />
+			</div>
+		</form>
+		<h1>Pay</h1>
+		<form method='post' action='pay.php?action=PAY'>	
+			<div>
+				Receipt ID: <input type='text' placeholder='Receipt ID' name='receipt_id' />
+			</div>
+			Pay by:
+			<div>
+				<input type='radio' value='CASH' name='method' /> Cash
+			</div>
+			<div>
+				<input type='radio' value='CREDITCARD' name='method' /> 
+				Credit card: <input type='text' placeholder='Credit card number' name='ccnumber' />
+			</div>
+			<div>
+			</div>
+			<div>
+				<input type='submit' value='Pay' />
+			</div>
+		</form>
+		<h1>Get receipt</h1>
+		<form method='get' action='pay.php'>
+			<input type='hidden' name='request' value='RECEIPT' />
+			<div>
+				Receipt ID: <input type='text' placeholder='Receipt ID' name='receipt_id' />
+			</div>
+			<div>
+				<input type='submit' value='Get receipt' />
+			</div>
+		</form>
+		<hr>
+		<h1>Book table</h1>
+		<form method='post' action='table.php?action=RESERVE'>
+			<div>
+				Table number: <input type='text' name='table_no' />
+			</div>
+			<div>
+				Number of customer: <input type='text' name='no_of_cust' />
+			</div>
+			<div>
+				<input type='submit' value='Get receipt' />
+			</div>
+		</form>
 	</body>
 </html>

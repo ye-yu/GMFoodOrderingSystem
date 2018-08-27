@@ -1,4 +1,4 @@
-CREATE FUNCTION find_cust_id(name VARCHAR(100), phone_no VARCHAR(15)) RETURNS CHAR(10)
+CREATE OR REPLACE FUNCTION find_cust_id(name VARCHAR(100), phone_no VARCHAR(15)) RETURNS CHAR(10)
 BEGIN
     DECLARE id CHAR(10);
     SELECT customerid INTO id FROM `foodorder`.`customer` WHERE customername = name and customerphoneno = phone_no;
@@ -7,7 +7,10 @@ BEGIN
     ELSE
         CALL generate_id('customer', @gid, @isunique);
         SELECT @gid INTO id;
-        RETURN id;
+		IF @isunique THEN
+			RETURN id;
+		END IF;
+		RETURN '0';
     END IF;
 END//
 

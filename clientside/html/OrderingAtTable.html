@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Ordering</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- objects begin -->
+	<!-- load customer script -->
+	<script src="http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/clientside/javascript/Customer.js"></script>
+	<!-- load order script -->
+	<script src="http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/clientside/javascript/Ordering.js"></script>
+	<!-- load food script -->
+	<script src="http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/clientside/javascript/Food.js"></script>
+	<!-- objects end -->
+	
+	<link rel="stylesheet" href="http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/clientside/others/lib/bootstrap.min.css">
+	<script src="http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/clientside/others/lib/jQuery.js"></script>
+	<script src="http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/clientside/others/lib/popper.js"></script>
+	<script src="http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/clientside/others/lib/bootstrap.min.js"></script>
+	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.css" /> -->
+	<!-- <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script> -->
+	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+	<link rel="stylesheet" href="http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/clientside/html/style.css">
+	<script src="http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/clientside/javascript/OrderingAtTable(module).js"></script>
+<script>
+	<!-- $(document).ready(function(){ -->
+			<!-- $('#bill-split-pref').modal('show') -->
+	<!-- }); -->
+	
+	//bill split selection
+$(document).ready(function(){
+	$('#yes-btn').click(function(){
+		$('#bill-split-pref').modal('hide');
+		$('#bill-split-ok').modal('show');
+		
+	});
+});	
+
+//change num of customer
+$(document).ready(function(){
+	$('#change-cust-num').click(function(){
+		$('#change-cust-modal').modal('show');
+	});
+});	
+
+//animate call-waiter button
+$(document).ready(function(){
+	$('#call-waiter').click(function(){
+		$('#call-waiter').attr('class','buttonload');
+		$('#call-waiter i').attr('class', 'fa fa-spinner fa-spin');
+	});
+});	
+$(document).ready(function(){
+	$('#no-split-btn').click(function(){
+		<!-- var orderSummary = document.querySelector('#cust-order-summary'); -->
+		<!-- orderSummary.innerHTML = '<div><span class=col-md-9>Customer 1</span><button class=col-md-3>Order Now</button> </div>'; -->
+		createCustomer();
+	});
+});
+//once ok button is presses, order can be made
+$(document).ready(function(){
+	$('#ok-btn').click(function(){
+		<!-- var orderSummary = document.querySelector('#cust-order-summary'); -->
+		<!-- console.log(orderSummary); -->
+		<!-- orderSummary.innerHTML = '<div><span class=col-md-9>Customer 1</span><button class=col-md-3>Order Now</button> </div>'; -->
+		createCustomer();
+	});
+});
+
+$(document).ready(function(){
+	$('#call-bill').click(function(){
+	var a = $('#call-bill i');
+	console.log(a);
+		$('#call-bill i').attr('class','fa fa-spinner fa-spin');
+	});
+});
+</script>
+</head>
+<body>
+<div class='first-layer' id='first-layer'>
+</div>
+<div class='front' id='first-layer-elements'>
+	<div class='loader-box'>
+		<div class='table-number-shower'>
+			<div class='table-number-title'>
+				Table Number:
+			</div>
+			<div class='table-number' id='table-number'>
+				X
+			</div>
+		</div>
+		<div class='loader'>
+		
+		</div>
+		<div class='waiting-text'>
+			<h2 id='waiting-message'>Loading...</h2>
+		</div>
+		<div class='cust-input' id='first-information'>
+		</div>
+	</div>
+</div>
+	<!-- Bill Split Preference Modal -->
+	<div class="modal fade" id="bill-split-pref" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-lg " role="document" >
+			<div class="modal-content" id="modalcontent">
+				<!-- <div class="modal-header" > -->
+					<!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"> -->
+					<!-- <h2><span aria-hidden="true">&times;</span></h2> -->
+					<!-- </button> -->
+				<!-- </div> -->
+				<div class="modal-body text-center" id="modal-body">
+					<b>Split the bill later?</b>
+				</div>
+				<div class="modalbutton">
+					<div>
+						<input type="submit" data-dismiss="modal" id="yes-btn" value="Yes">
+					</div>
+					<div>
+						<input type="submit" data-dismiss="modal" id="no-split-btn" value ="No">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Bill Split Preference-OK Modal -->
+	<div class="modal fade " id="bill-split-ok" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-lg " role="document" >
+			<div class="modal-content" id="modalcontent">
+				<div class="modal-body text-center" id="modal-body">
+					<div>
+						<b>Bill will be split.</b>
+					</div>
+					<div>
+						<h4 class="description">Please order separately.</h4>
+					</div>
+				</div>
+				<div class="modalbutton">
+					<div>
+						<input type="submit" data-dismiss="modal" id="ok-btn" value="Continue">
+					</div>
+				</div>
+				<!-- <div class="modal-footer"> -->
+					<!-- <button id="ok-btn" type="button" class="btn btn-secondary" data-dismiss="modal">Ok</button> -->
+				<!-- </div> -->
+			</div>
+		</div>
+	</div>
+		<!-- Change Number of Customer Modal -->
+	<div class="modal fade " id="change-cust-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-lg " role="document" >
+			<div class="modal-content" id="modalcontent">
+				<div class="modal-header alert-info" >
+					<h5 class="modal-title" id="exampleModalCenterTitle">Change number of customer.</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body text-center" id="modal-body">Enter number of customer:</div>
+				<input type="text" id="new-cust-input">
+				<div class="modal-footer text-center">
+					<button  type="button" class="btn btn-primary" id="yes-btn">OK</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- Notifications -->
+	<div class="container-fluid">
+		<div class="notification-bar">
+			<span id="tnum">Table Number:X</span>
+			<span id="cnum">Number of Customer:Y</span>
+		</div>
+	</div>
+	<!-- Order Section -->
+	<div class="container-fluid cust-order-section">
+	<div class="row">
+		<!-- Order Summary -->
+		<div class="col-md-9" id="cust-order-summary">
+		</div>
+		<!-- Buttons -->
+		<div class="col-md-3 text-center" id="table-buttons">
+			<div>
+				<button class="btn-primary" id="change-cust-num">Change number of customer</button>
+			</div>
+			<div>
+				<button id="call-waiter "><i></i>Call Waiter</button>
+			</div>
+			<div>
+				<button id="call-bill"><i>Request for Bill</i></button>
+			</div>
+		</div>
+	</div>
+	</div>
+	<!-- <script src="app.js"></script> -->
+</body>
+</html>

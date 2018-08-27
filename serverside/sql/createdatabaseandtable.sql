@@ -31,7 +31,7 @@ CREATE TABLE `foodorder`.`ordering`(
     `orderReadyStatus` BOOLEAN NOT NULL DEFAULT FALSE,
     `customerid` CHAR(10) NOT NULL DEFAULT '0',
     `tableno` SMALLINT UNSIGNED NULL,
-    `ordertotal` DECIMAL(7, 2) NULL,
+    `ordertotal` DECIMAL(7, 2) NULL DEFAULT 0,
     PRIMARY KEY(`orderid`),
     FOREIGN KEY(`customerid`) REFERENCES customer(`customerid`),
     FOREIGN KEY (`tableno`) REFERENCES diningtable(`tableno`)
