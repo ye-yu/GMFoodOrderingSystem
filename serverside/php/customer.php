@@ -59,10 +59,10 @@ elseif(isset($queries['action']))
 	switch($queries['action'])
 	{
 		case "PLACE_ORDER":
-			$_SESSION['cid'] = $_POST['cust_id'];
-			$_SESSION['cname'] = $_POST['cust_name'];
-			$_SESSION['cphone_no'] = $_POST['cust_phone_no'];
-			$_SESSION['corder'] = $_POST['cust_order'];
+			$_SESSION['cid'] = $_POST['id'];
+			$_SESSION['cname'] = $_POST['name'];
+			$_SESSION['cphone_no'] = $_POST['phone_no'];
+			$_SESSION['corder'] = $_POST['order'];
 			
 			$order = json_decode($_SESSION['corder']);
 			print_r($order);
@@ -93,8 +93,7 @@ elseif(isset($queries['action']))
 			break;
 		case "CREATE":
 			//print_r($_POST);
-			showLog ("Customer info is inserted into database.");
-			$res = $connection -> query("insert into customer values('" . $_SESSION['cid'] ."','". $_SESSION['cname']."','".$_SESSION['cphone_no']."')");
+			$res = $connection -> query("insert into customer values('" . $_POST['id'] ."','". $_POST['name']."','".$_POST['phone_no']."')");
 			if (!$res)
 				echo (0);
 			else

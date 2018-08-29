@@ -30,13 +30,25 @@ class Customer{
 	placeOrder()
 	{
 		var param = "";
-		param += "cust_id="+this.custID;
+		param += "id="+this.custID;
 		param += "&";
-		param += "cust_phone_no="+this.custPhoneNo;
+		param += "phone_no="+this.custPhoneNo;
 		param += "&";
-		param += "cust_name="+this.custName;
+		param += "name="+this.custName;
 		param += "&";
-		param += "cust_order="+ JSON.stringify(this.order);
+		param += "order="+ JSON.stringify(this.order);
 		sendRequest('POST', param, 'http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/serverside/php/customer.php?action=PLACE_ORDER', function(a){console.log(a)});
 	}
+	
+	createCustomer()
+	{
+		var param = "";
+		param += "id="+this.custID;
+		param += "&";
+		param += "phone_no="+this.custPhoneNo;
+		param += "&";
+		param += "name="+this.custName;
+		sendRequest('POST', param, 'http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/serverside/php/customer.php?action=CREATE', function(a){console.log(a)});
+	}
+
 }

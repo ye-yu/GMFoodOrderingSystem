@@ -59,10 +59,17 @@ if(isset($queries['request']))
 			{
 				$res = $connection -> query("select * from ordering where orderid = '" . $queries['order_id']. "'");
 				$row = $res -> fetch_assoc();
-				$res = $connection -> query("select foodid, orderQuantity from orderlist where orderid = '" . $queries['order_id']. "'");
+				$res = $connection -> query("select foodname, foodprice, orderQuantity from food, orderlist where food.foodid = orderlist.foodid and orderid = '" . $queries['order_id']. "'");
 				$foodids = [];
 				while($rows = $res -> fetch_assoc())
-					$foodids[$rows['foodid']] = $rows['orderQuantity'];
+				{
+					$assocarr = [
+						"foodname" => $rows['foodname'],
+						"foodprice" => $rows['foodprice'],
+						"quantity" => $rows['orderQuantity']
+					];
+					array_push($foodids, $assocarr);
+				}
 				$row['foodlistid'] = $foodids;
 				echo (json_encode($row));
 			}

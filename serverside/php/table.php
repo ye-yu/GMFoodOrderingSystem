@@ -42,6 +42,16 @@ if(isset($queries['request']))
 			}
 			echo($row);
 			break;
+		case "BILLING":
+		{
+			$res = $connection -> query("select tableno from diningtable where tablestatus = 'Billing'");
+			$rows = [];
+			while($row = $res -> fetch_assoc())
+			{
+				array_push($rows, $row);
+			}
+			echo (json_encode($rows));
+		}
 	}
 	
 }
@@ -65,38 +75,33 @@ elseif(isset($queries['action']))
 			else 
 				echo (0);
 			break;
-		case "SET_NAME":
-			showLog ("Name of customer is set. ");
-			$_SESSION['cid'] = $_POST['id'];
-			$_SESSION['cname'] = $_POST['name'];
-			$req = $connection -> query("update customer set customername = '".$_SESSION['cname']."' where customerid = '". $_SESSION['cid'] ."'");
+		case "WAITER":
+			$req = $connection -> query("update diningtable set tableStatus = 'Waiter' where tableno = ". $_POST['table_no']);
 			if($req)
 				echo(true);
 			else 
 				echo (0);
 			break;
-		case "FEEDBACK":
-			showLog ("Feedback of customer is sent.");
-			break;
-		case "SET_PHONE_NO":
-			showLog ("Phone number of customer is set.");
-			$_SESSION['cid'] = $_POST['id'];
-			$_SESSION['cphone_no'] = $_POST['phone_no'];
-			$req = $connection -> query("update customer set customerphoneno = '".$_SESSION['cphone_no']."' where customerid = '". $_SESSION['cid'] ."'");
+		case "BILLING":
+			$req = $connection -> query("update diningtable set tableStatus = 'Billing' where tableno = ". $_POST['table_no']);
 			if($req)
 				echo(true);
 			else 
 				echo (0);
 			break;
-			break;
-		case "CREATE":
-			//print_r($_POST);
-			showLog ("Customer info is inserted into database.");
-			$res = $connection -> query("insert into customer values('" . $_SESSION['cid'] ."','". $_SESSION['cname']."','".$_SESSION['cphone_no']."')");
-			if (!$res)
+		case "QUEUE":
+			$req = $connection -> query("update diningtable set tableStatus = 'In Queue' where tableno = ". $_POST['table_no']);
+			if($req)
+				echo(true);
+			else 
 				echo (0);
-			else
-				echo (true);
+			break;
+		case "PAID":
+			$req = $connection -> query("update diningtable set tableStatus = 'Paid' where tableno = ". $_POST['table_no']);
+			if($req)
+				echo(true);
+			else 
+				echo (0);
 			break;
 	}
 }

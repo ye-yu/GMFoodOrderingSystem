@@ -1,0 +1,321 @@
+.ratingnreview
+{
+	margin: 0 15px;
+}
+
+.ratingnreview .rating
+{
+	position: absolute;
+	bottom: 72%;
+	left: 25%;
+}
+
+.review-textarea
+{
+  resize: none; 
+	font-size: 15px;
+	width: 100%;
+	height: 180px;
+	background-color: #efedda;
+	border-style: solid;
+	border-color: #aaaaaa;
+	border-width: 1px;
+	border-radius: 10px;
+	padding: 10px 15px;
+}
+
+input
+{
+	text-align: center;
+	padding: 10px 70px;
+	border-style: solid;
+	border-width: 1px;
+	border-radius: 15px;
+  -o-transition:.5s;
+  -ms-transition:.5s;
+  -moz-transition:.5s;
+  -webkit-transition:.5s;
+  /* ...and now for the proper property */
+  transition:.25s;
+}
+
+input:hover
+{
+	background-color: #cac9cc;
+	border-style: none;
+}
+
+button
+{
+	padding: 10px 70px;
+	border-style: solid;
+	border-width: 1px;
+	border-radius: 15px;
+  -o-transition:.5s;
+  -ms-transition:.5s;
+  -moz-transition:.5s;
+  -webkit-transition:.5s;
+  /* ...and now for the proper property */
+  transition:.25s;
+}
+
+button:hover
+{
+	text-align: center;
+	background-color: #cac9cc;
+	border-style: none;
+}
+
+.ordersummary
+{
+	overflow-y: scroll;
+	-webkit-box-shadow: inset 0px 0px 37px 1px rgba(0,0,0,0.2);
+	-moz-box-shadow: inset 0px 0px 37px 1px rgba(0,0,0,0.2);
+	box-shadow: inset 0px 0px 37px 1px rgba(0,0,0,0.2);
+}
+
+.ordersummary .orderlist
+{
+  margin: 15px 25px 0;
+	font-size: 14px;
+}
+
+.ordersummary .orderlist .foodname
+{
+	padding: 0 0 0 50px;
+}
+
+.ordersummary .orderlist .foodquantity
+{
+	position: absolute;
+	right: 20%;
+}
+
+.ordersummary .orderlist .foodstatus
+{
+	position: absolute;
+	right: 10%;
+}
+.ordersummary .customername
+{
+	font-size: 42px;
+	margin: 0 0 0 40px;
+}
+
+.ordersummary .ordernow
+{
+	float: inline-end;
+	margin: 10px 40px;
+	font-size: 22px;
+}
+
+.ordersummary .ordernow button
+{
+	clear: both;
+	overflow: visible;
+	padding: 10px 70px;
+	border-style: solid;
+	border-width: 1px;
+	border-radius: 15px;
+}
+
+.ordersummary .orderlist hr.orderdividor
+{
+	border: none;
+	background-color: grey;
+	height: 1px;
+	margin: 15px 0 10px;
+}
+
+.ordersummary hr.customerdividor
+{
+	border-radius: 2px;
+	background-color: #17202b;
+	height: 2px;
+}
+
+.modalbutton
+{
+	font-size: 14px;
+	margin: 40px auto 25px;
+}
+
+.modalbutton div
+{
+	display: inline;
+}
+
+.modalbutton input
+{
+	margin: 0 60px;
+	padding: 15px 100px;
+	background-color: white;
+	border-style: solid;
+	border-color: darkgray;
+	border-radius: 15px;
+	border-width: 1px;
+  -o-transition:.5s;
+  -ms-transition:.5s;
+  -moz-transition:.5s;
+  -webkit-transition:.5s;
+  /* ...and now for the proper property */
+  transition:.25s;
+}
+
+.modalbutton input:hover
+{
+	background-color: #d7ead3;
+}
+.description
+{
+	margin: 5px 0 0 3px;
+	font-size: 14px;
+}
+h5
+{
+	font-size: 14px;
+}
+.first-layer
+{
+	position: fixed;
+	background-color: white;
+	width: 2000px;
+	height: 2000px;
+	overflow: hidden;
+	z-index: 9;
+}
+.front
+{
+  overflow: visible;
+  position: fixed;
+	left: 50%;
+	top: 25%;
+	z-index: 10;
+}
+
+.front .loader-box
+{
+	position: relative;
+	left: -50%;
+}
+
+.front .waiting-text
+{
+margin: 10px;
+position: fixed;
+left: 45%;
+}
+
+.front .cust-input
+{
+  margin: 15px;
+  position: fixed;
+  left: 34.5%;
+	bottom: 20%;
+	width: 400px;
+	text-align: center;
+	font-size: 13px;
+}
+.front .table-number-shower 
+{
+	position: fixed;
+	left: 46%;
+}
+.front .table-number-shower .table-number
+{
+	font-size: 100px;
+	width: 200px;
+	height: 150px;
+	text-align: center;
+	position:fixed;
+	top: 27%;
+	left: 42.5%;
+}
+.front .table-number-shower .table-number-title
+{
+	font-size: 30px;
+	position: fixed;
+	top: 15%;
+	left: 42.5%;
+}
+.loader {
+  border: 6px solid #f3f3a3;
+  border-radius: 50%;
+  border-top: 6px solid #34987b;
+  width: 200px;
+  height: 200px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  100% { -webkit-transform: rotate(0deg); }
+  0% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  100% { transform: rotate(0deg); }
+  0% { transform: rotate(360deg); }
+}
+body{
+		height:100%;
+		width:100%;
+}
+
+.modal-body{
+	font-size:50px;
+}
+
+.notification-bar{
+	padding:20px;
+	background-color: #34987b;
+	font-size: 16pt;
+	color: white;
+	text-shadow:
+		2px 1px 1px #555555;
+}
+
+.notification-bar #tnum{
+	padding:50px;	
+}
+
+.notification-bar #cnum{
+	padding:20px;
+}
+
+.fa-ellipsis-h{
+	font-size:4em;
+	margin:1rem;
+}
+
+#cust-order-summary{
+	height:90vh;
+	border-right:2px solid black;
+}
+
+.buttons
+{
+	padding: 70px 0;
+}
+
+
+.buttons button
+{
+	margin: 20px 0;
+	display: inline-block;
+	padding: 10px 0;
+	width: 80%;
+}
+
+#new-cust-input{
+	width:50%;
+	margin:0 auto;
+}
+.buttonload {
+background-color: #4CAF50; 
+border: 2px solid blue; 
+color: white;
+padding: 12px 16px; 
+font-size: 16px;
+}
