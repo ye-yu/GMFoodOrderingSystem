@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Food Menu Management</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style>
+/**********************************
+Responsive navbar-brand image CSS
+- Remove navbar-brand padding for firefox bug workaround
+- add 100% height and width auto ... similar to how bootstrap img-responsive class works
+***********************************/
+
+.navbar-brand {
+	padding: 0px;
+}
+.navbar-brand>img {
+	height: 100%;
+	padding: 15px;
+	width: auto;
+}
+/* EXAMPLE 3
+
+line height is 20px by default so add 30px top and bottom to equal the new .navbar-brand 80px height  */
+
+.example3 .navbar-brand {
+	height: 80px;/* same as image height */
+}
+.example3 .nav >li >a {
+	padding-top: 30px;
+	padding-bottom: 30px;
+}
+.example3 .navbar-toggle {
+	padding: 10px;
+	margin: 25px 15px 25px 0;
+}
+
+/* center restaurant name when not in mobile view */
+@media only screen and (min-width : 768px) {
+.navbar-text {
+	position: absolute;
+	width: 100%;
+	left: 0;
+	text-align: center;
+	margin-top: 30px;
+}
+}
+
+/* Set height of the grid so .sidenav can be 100% (adjust if needed) */
+    .row.content {height: 1500px}
+    
+    /* Set gray background color and 100% height */
+    .sidenav {
+      background-color: #f1f1f1;
+      height: 100%;
+    }
+      
+    
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height: auto;} 
+    }	
+</style>
+
+			
+</head>
+<body>
+<div class="example3">
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar1"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+        <a class="navbar-brand" href="#"><img src="http://placehold.it/432x80&text=Logo" alt="logo"> </a>
+        <h3 class="navbar-text">Restaurant Name</h3>
+      </div>
+      <div id="navbar1" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li class="active"><a href="1.html">Home</a></li>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">Locate Us</a></li>
+        </ul>
+      </div>
+      <!--/.nav-collapse --> 
+    </div>
+    <!--/.container-fluid --> 
+  </nav>
+</div>
+	
+<div class="container-fluid">
+  <div class="row content">
+    <div class="col-sm-3 sidenav">   
+		<br>
+<form>		
+      <h2>Select by:</h2>
+		<div class="radio">
+		  <label><input type="radio" name="sel_by">Category</label>
+		</div>
+		<div class="radio">
+		  <label><input type="radio" name="sel_by" checked>Combo by price range</label>
+		</div>
+<div class="form-inline">
+  <div class="form-group">
+    <label for="price">RM:</label>
+    <input type="text" class="form-control" id="price">
+  </div>  
+</div>
+<p><b>Include:</b></p>	
+<div class="checkbox">
+  <label><input type="checkbox" value="">Western Food</label>
+</div>
+<div class="checkbox">
+  <label><input type="checkbox" value="">Eastern Food</label>
+</div>
+<div class="checkbox">
+  <label><input type="checkbox" value="">Canned Drink</label>
+</div>
+<div class="checkbox">
+  <label><input type="checkbox" value="">Beverages</label>
+</div>
+<div class="checkbox">
+  <label><input type="checkbox" value="">Add-ons</label>
+</div>
+ </form>		
+</div>
+
+    <div class="col-sm-9">            
+<div class="container-fluid">
+  <div class="row">
+  		<div class="col-md-6" style="padding: 10px;">
+           <h1>Combo Selection</h1>
+           <h4>Please input your price range and menu item includes.</h4>
+        </div>
+        <div class="col-md-6 text-right" style="padding-top: 30px;">    		   
+			<button type="button" class="btn btn-lg">My Cart <span class="badge">1</span></button>
+    	</div>
+  </div>
+</div>
+
+ 
+		
+      
+      
+    </div>
+  </div>
+</div>	
+</body>
+</html>

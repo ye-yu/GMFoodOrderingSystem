@@ -74,6 +74,21 @@ if(isset($queries['request']))
 				echo (json_encode($row));
 			}
 			break;
+		case "STATUS_FROM_TABLE":
+			$noOfCustomer = (int)$queries['no_of_cust'];
+			$custs = [];
+			for($i = 0; $i < $noOfCustomer; $i++)
+			{
+				$custs[$queries['table_no'] . " " . ($i + 1)] = [];
+				$res = $connection -> query("select foodname, orderQuantity as foodquantity, orderStatus as foodstatus from orderlist, food where food.foodid = orderlist.foodid and orderid = (SELECT `orderid` FROM ordering where orderid not in (select orderid from receipt) and customerid = (select customerid from customer where customername = '" . $queries["table_no"] . " " . ($i + 1) ."'));");
+				if($res)
+				{
+					while($rows = $res -> fetch_assoc())
+					array_push($custs[$queries['table_no'] . " " . ($i + 1)], $rows);
+				}
+			}
+			echo(json_encode($custs));
+			break;
 		case "TOTAL":
 			$res = $connection -> query("select orderTotal from ordering where orderid = '" . $queries['order_id']. "'");
 			$row = $res -> fetch_assoc();

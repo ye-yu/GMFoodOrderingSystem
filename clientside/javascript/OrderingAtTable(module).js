@@ -6,6 +6,7 @@ var requestSent = false;
 var ordered = false;
 var customersWithOrder = {};
 var checked = false;
+var checkfoodinterval = null;
 
 function sendCheckTableRequest(method,param,url,toSet){
 	if(checked)
@@ -46,19 +47,10 @@ function createCustomer()
 		customersWithOrder[a.custName] = [];
 		
 		console.log("number of customer is " + noOfCustomer);
-		//remove this later
-		for(var j = 0; j < 3; j++)
-		{
-			var assocarr = {};
-			assocarr['foodname'] = 'food #' + (i*j + 1);
-			assocarr['foodquantity'] = 2;
-			assocarr['foodstatus'] = 'Accepted';
-			
-			customersWithOrder[a.custName].push(assocarr);
-		}
-		//
 		console.log(a);
 	}
+	if(checkfoodinterval !== undefined)
+		checkfoodinterval = setInterval(refreshCustomerAndFoodOrderArray, 10000);
 }
 function waitingOnReservation(){
 	sendCheckTableRequest(
@@ -102,6 +94,7 @@ function customerButton(n)
 }
 function displayOrderSummary()
 {
+	document.getElementById('cust-order-summary').innerHTML = '';
 	for(var i = 0; i < noOfCustomer; i++)
 	{
 		var parent_a = document.getElementById('cust-order-summary');
@@ -117,7 +110,7 @@ function displayOrderSummary()
 					var cnumber = (i + 1) + "";
 					child_a_b_a.id = 'customerbutton-' + cnumber;
 					child_a_b_a.value = cnumber;
-					child_a_b_a.innerHTML = 'Order Now ' + (i + 1);
+					child_a_b_a.innerHTML = 'Order Now';
 					//child_a_b_a.onclick = function() {customerButton(child_a_b_a);};
 					child_a_b.appendChild(child_a_b_a);
 				child_a.appendChild(child_a_b);
@@ -147,7 +140,7 @@ function displayOrderSummary()
 				var child_b_d = document.createElement('span')
 				child_b_d.className = "foodstatus";
 				child_b_d.id = "orderstatus-" + (i + 1) + "-" + (j + 1); //i is the customer number, j is the food number
-				child_b_d.innerHTML = 'Accepted';
+				child_b_d.innerHTML = foodArray[j]['foodstatus'];
 				child_b.appendChild(child_b_d);
 			}
 			parent_a.appendChild(child_b);
@@ -312,6 +305,7 @@ function setDisableTimer(elem)
 
 function callBillOnClick(elem)
 {
+	clearInterval(checkfoodinterval);
 	if(waiterCalled)
 		return;
 	checked = false;
@@ -400,13 +394,18 @@ function startDiningHereManualOnClick()
 		a.disabled = true;
 		sendRequest(
 			'POST',
-			'table_no=' + tableNumber + '&no_of_cust=' + noOfCustomer,
+			'no_of_cust=' + noOfCustomer,
 			'http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/serverside/php/table.php?action=RESERVE',
-			function(a)
+			function(b)
 			{
-				if(a === "1")
+				if(b == '')
 				{
-					
+					document.getElementById('manual-no-of-cust').disabled = false;
+					document.getElementById('manual-no-of-cust').value = '';
+					document.getElementById('manual-no-of-cust').placeholder = 'Too many customers';
+				}
+				else
+				{
 				}
 			}
 		);
@@ -494,6 +493,20 @@ function waitingOnPayment()
 		}
 	);
 }
+
+function refreshCustomerAndFoodOrderArray()
+{
+	sendRequest(
+		'GET',
+		'',
+		'http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/serverside/php/order.php?request=STATUS_FROM_TABLE&table_no=' + tableNumber + '&no_of_cust=' + noOfCustomer,
+		function(a)
+		{
+			customersWithOrder = JSON.parse(a);
+			displayOrderSummary();
+		}
+	);
+}
 window.onload = function()
 {
 	if (checkCookie())
@@ -508,6 +521,9 @@ window.onload = function()
 		var e = document.getElementById('custnumbertop');
 		e.innerHTML = noOfCustomer;
 		fadeFirstLayer();
+		refreshCustomerAndFoodOrderArray();
+		if(checkfoodinterval !== undefined)
+			checkfoodinterval = setInterval(refreshCustomerAndFoodOrderArray, 10000);
 		displayOrderSummary();
 		dismissWaiting();
 	}

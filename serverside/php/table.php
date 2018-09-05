@@ -29,7 +29,7 @@ if(isset($queries['request']))
 			$row = NULL;
 			if(isset($queries['seat_size']))
 			{
-				$res = $connection -> query("select tableno from diningtable where seatQuantity <= " . $queries['seat_size']);
+				$res = $connection -> query("select tableno from diningtable where seatQuantity >= " . $queries['seat_size'] . " order by seatQuantity asc");
 				$rows = $res -> fetch_assoc();
 				$row = $rows['tableno'];
 				
@@ -62,9 +62,12 @@ elseif(isset($queries['action']))
 	switch($queries['action'])
 	{
 		case "RESERVE":
-			$req = $connection -> query("update diningtable set tableStatus = 'Req ".$_POST['no_of_cust']."' where tableno = ". $_POST['table_no']);
+			$req = $connection -> query("select reserve_table(".$_POST['no_of_cust'].") as tableno");
 			if($req)
-				echo(true);
+			{
+				$rows = $req -> fetch_assoc();
+				echo($rows['tableno']);
+			}
 			else 
 				echo (0);
 			break;
