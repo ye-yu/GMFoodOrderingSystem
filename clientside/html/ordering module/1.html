@@ -4,9 +4,27 @@
 <title>Food Menu Management</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" href="http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/clientside/others/lib/v3.3.7-bootstrap.min.css">
+<script src="http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/clientside/others/lib/jQuery.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script>
+function sendRequest(method,param,url,toSet){
+	var ourRequest = new XMLHttpRequest();
+	ourRequest.open(method,url);
+	ourRequest.onload = function()
+	{
+		if(ourRequest.readyState== 4 && ourRequest.status == 200)
+			{
+				toSet(ourRequest.responseText);
+				console.log(ourRequest.responseText);
+			}
+	}
+	if (method == 'POST')
+		ourRequest.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+	ourRequest.send(param);
+}
+</script>
+<script src="http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/clientside/javascript/Ordering(Module).js"></script>
 <style>
 /**********************************
 Responsive navbar-brand image CSS
@@ -172,8 +190,7 @@ line height is 20px by default so add 30px top and bottom to equal the new .navb
           </div>
         </a>
       </div>
-    </div>
-    
+    </div> 
   </div>
 </div>
 <div class="container-fluid bg-3 text-center">    

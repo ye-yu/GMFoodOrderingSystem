@@ -1,6 +1,9 @@
 function getCustFromDatabase(c)
 {
-	var url = 'http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/serverside/php/customer.php?request=FIND_ID&name=' + c.custName + '&phone_no' + c.custPhoneNo;
+	if(c.phone_no == null)
+		var url = 'http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/serverside/php/customer.php?request=FIND_ID&name=' + c.custName;
+	else
+		var url = 'http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/serverside/php/customer.php?request=FIND_ID&name=' + c.custName + '&phone_no=' + c.custPhoneNo;
 	sendRequest('GET', '', url, function(a){c.custID = a;});
 }
 function sendRequest(method,param,url,toSet){
@@ -27,7 +30,7 @@ class Customer{
 		this.custID = null;
 	}
 	
-	placeOrder()
+	placeOrder(func)
 	{
 		var param = "";
 		param += "id="+this.custID;
@@ -37,7 +40,7 @@ class Customer{
 		param += "name="+this.custName;
 		param += "&";
 		param += "order="+ JSON.stringify(this.order);
-		sendRequest('POST', param, 'http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/serverside/php/customer.php?action=PLACE_ORDER', function(a){console.log(a)});
+		sendRequest('POST', param, 'http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/serverside/php/customer.php?action=PLACE_ORDER', func);
 	}
 	
 	createCustomer()

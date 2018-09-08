@@ -91,6 +91,22 @@ function customerButton(n)
 		return;
 	}
 	console.log("Order by " + n.value);
+	var theform = document.createElement('form');
+	theform.method = 'POST';
+	theform.action = 'http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/clientside/html/Ordering.php';
+	var thevalue = document.createElement('input');
+	thevalue.type = 'hidden';
+	thevalue.name = 'customer_number';
+	thevalue.value = tableNumber + ' ' + n.value;
+	theform.appendChild(thevalue);
+	var thevalue = document.createElement('input');
+	thevalue.type = 'hidden';
+	thevalue.name = 'table_number';
+	thevalue.value = tableNumber;
+	theform.appendChild(thevalue);
+	$('body').append(theform);
+	saveToCookie();
+	theform.submit();
 }
 function displayOrderSummary()
 {
@@ -111,7 +127,6 @@ function displayOrderSummary()
 					child_a_b_a.id = 'customerbutton-' + cnumber;
 					child_a_b_a.value = cnumber;
 					child_a_b_a.innerHTML = 'Order Now';
-					//child_a_b_a.onclick = function() {customerButton(child_a_b_a);};
 					child_a_b.appendChild(child_a_b_a);
 				child_a.appendChild(child_a_b);
 			parent_a.appendChild(child_a);
@@ -253,13 +268,11 @@ function refreshCustomerAndFoodOrder(){
 		customersDOM.appendChild(subElement);
 	}
 }
-*/
 function startOrdering(customerNumber){
 	var orderForm = document.createElement('<form>');
 	orderForm = createForm(orderForm,customerNumber);
 	orderForm.submit();
 }
-/*
 function createForm(orderForm,customerNumber){
 	orderForm.method = 'post';
 	Set orderform.action = '/ordering.html';

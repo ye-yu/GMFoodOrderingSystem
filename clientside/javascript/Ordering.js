@@ -69,8 +69,8 @@ class Ordering{
 		this.tableNo = null;
 		this.orderFeedback = null;
 		this.orderReadyStatus = null;
-		this.orderFoods = {};
+		this.orderFoods = [];
 		var date = new Date();
-		this.orderDate = date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate();
+		this.orderDate = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
 	}
 }

@@ -43,8 +43,8 @@ if(isset($queries['request']))
 			else
 				$_SESSION['cphone_no'] = "";
 			$_SESSION['cname'] = $queries['name'];
-			showLog ("ID search by name: ". $_SESSION['cname']. " and " . $_SESSION['cphone_no']. " is requested.");
 			$res = $connection -> query("select find_cust_id('" . $_SESSION['cname'] . "' ,'" . $_SESSION['cphone_no'] . "') as id");
+			showLog ("ID search by name: ". $_SESSION['cname']. " and " . $_SESSION['cphone_no']. " is requested.");
 			$rows = $res->fetch_assoc();
 			$_SESSION['cid'] = $rows['id'];
 			echo ($_SESSION['cid']);
@@ -63,9 +63,17 @@ elseif(isset($queries['action']))
 			$_SESSION['cname'] = $_POST['name'];
 			$_SESSION['cphone_no'] = $_POST['phone_no'];
 			$_SESSION['corder'] = $_POST['order'];
-			
+			$req = $connection -> query("select insert_customer('" . $_SESSION['cid'] . "', '" . $_SESSION['cname'] . "', '" . $_SESSION['cphone_no'] . "')");
 			$order = json_decode($_SESSION['corder']);
 			print_r($order);
+			$orderid = $order -> orderID;
+			$tableno = $order -> tableNo;
+			$orderlist = $order -> orderFoods;
+			for($i = 0; $i < count($orderlist); $i++)
+			{
+				if($connection -> query("select add_order('" . $orderid . "', '" . $orderlist[$i] -> foodid . "', " . $orderlist[$i] -> foodquantity . ")"))
+					echo("Added");
+			}
 			break;
 		case "SET_NAME":
 			showLog ("Name of customer is set. ");

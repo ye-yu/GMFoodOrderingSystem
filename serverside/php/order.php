@@ -43,6 +43,11 @@ if(isset($queries['request']))
 				break;
 			} while(true);
 			break;
+		case "FIND_ID":
+			$res = $connection -> query("select find_order_id_from_table('". $queries['cid'] ."', ". $queries['tno'] .") as id");
+			$row = $res -> fetch_assoc();
+			echo($row['id']);
+			break;
 		case "ORDER":
 			if (isset($queries['unpaid']))
 			{
@@ -108,7 +113,7 @@ if(isset($queries['request']))
 					$row = [];
 					while($rows = $res -> fetch_assoc())
 					{
-						$row[$rows['foodtype']] = array();
+						$row[$rows['foodtype']] = [];
 					}
 					$res = $connection -> query("SELECT * FROM `food`");
 					while($rows = $res -> fetch_assoc())
@@ -119,12 +124,13 @@ if(isset($queries['request']))
 				else
 				{
 					$res = $connection -> query("select * from food");
-					$row = array();
+					$row = [];
 					while($rows = $res -> fetch_assoc())
 					{
 						array_push($row, $rows);
 					}
 				}
+				//print_r($row);
 			}
 			else
 			{
