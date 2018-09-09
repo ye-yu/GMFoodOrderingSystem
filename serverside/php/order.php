@@ -79,6 +79,13 @@ if(isset($queries['request']))
 				echo (json_encode($row));
 			}
 			break;
+		case "ORDERED_FOOD_LIST":
+			$res = $connection -> query("SELECT entryno, case when tableno is null then concat('Phone no: ', customer.customerphoneno) else concat('Table no: ', cast(tableno as char)) end as orderinfo, food.foodname, ordering.orderdate ,orderlist.orderQuantity, orderlist.preparedQuantity FROM `ordering`, orderlist, food, customer where customer.customerid = ordering.customerid and food.foodid = orderlist.foodid and ordering.orderid = orderlist.orderid and ((`ordering`.`orderpickuptime` is null and ordering.orderid not in (select orderid from receipt)) or (`ordering`.`tableno` is null and ordering.orderid in (select orderid from receipt))) and orderlist.orderStatus != 'Prepared' order by orderdate ASC");
+			$rows = [];
+			while($row = $res -> fetch_assoc())
+				array_push($rows, $row);
+			echo(json_encode($rows));
+			break;
 		case "STATUS_FROM_TABLE":
 			$noOfCustomer = (int)$queries['no_of_cust'];
 			$custs = [];
@@ -148,10 +155,9 @@ elseif(isset($queries['action']))
 	switch($queries['action'])
 	{
 		case "UPDATE_ORDER":
-			$_SESSION['oid'] = $_POST['order_id'];
-			$_SESSION['fid'] = $_POST['food_id'];
+			$_SESSION['eno'] = $_POST['entry_no'];
 			$_SESSION['ofstatus'] = $_POST['status'];
-			$req = $connection -> query("update orderlist set orderStatus = '".$_SESSION['ofstatus']."' where foodid = '". $_SESSION['fid'] ."' and orderid = '". $_SESSION['oid'] ."'");
+			$req = $connection -> query("update orderlist set orderStatus = '".$_SESSION['ofstatus']."' where entryno = '". $_SESSION['eno'] ."'");
 			if($req)
 				echo(true);
 			else 

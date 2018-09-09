@@ -1,0 +1,49 @@
+.header p{
+	padding:5px;
+	font-size:60px;
+	font-family:Arial;
+}
+.waiter-request-section{
+	border-right:2px solid black
+}
+
+.foodlist
+{
+	overflow-y: scroll;
+  height: 450px;
+}
+
+.order-table-body
+{
+}
+
+.foodlisttable tr td
+{
+	border-collapse: separate;
+	border-top-width: 0;
+	border-right-width: 0;
+	border-left-width: 0;
+}
+
+.table-num
+{
+	overflow-x: scroll;
+}
+.table-num button
+{
+	font-size: 20pt;
+}
+
+button
+{
+	border-style: solid;
+	border-width: 1px;
+  border-radius: 5px;
+	padding: 5px 12px;
+	margin: 0 2px;
+}
+
+button:hover
+{
+	background-color: #aaaaaa;
+}

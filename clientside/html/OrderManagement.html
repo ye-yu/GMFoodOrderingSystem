@@ -1,0 +1,99 @@
+<html>
+<head>
+	<style>
+	</style>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.css" />
+	<link rel="stylesheet" href="http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/clientside/css/OrderManagement.css" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script>
+	function sendRequest(method,param,url,toSet){
+		var ourRequest = new XMLHttpRequest();
+		ourRequest.open(method,url);
+		ourRequest.onload = function()
+		{
+			if(ourRequest.readyState== 4 && ourRequest.status == 200)
+				{
+					toSet(ourRequest.responseText);
+					console.log(ourRequest.responseText);
+				}
+		}
+		if (method == 'POST')
+			ourRequest.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+		ourRequest.send(param);
+	}
+	</script>
+</head>
+<body>
+	<div class="container-fluid">
+		<div class="container-fluid header">
+			<p>Order Management</p>
+		</div>
+		<div>
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th width="35%">Menu Item</th>
+						<th width="20%">Date and Time placed</th>
+						<th width="20%">Ordering Information</th>
+						<th width="25%">Update Status</th>
+					</tr>
+				</thead>
+				<tbody id="order-table-body" class="order-table-body">
+					<tr>
+						<td colspan="4">
+							<div class = "foodlist">
+								<table class="table foodlisttable" id="showfoodlisthere">
+										<tr>
+											<td width="35%">Food #1</td>
+											<td width="21%">01/01/2001 8:00am</td>
+											<td width="21%">Table #1</td>
+											<td width="23%"><button class="preparing-btn">Preparing</button><button class="deliver-btn">Delivering</button></td>
+										</tr>
+										<tr>
+											<td width="35%">Food #1</td>
+											<td width="21%">01/01/2001 8:00am</td>
+											<td width="21%">Table #1</td>
+											<td width="23%"><button class="preparing-btn">Preparing</button><button class="deliver-btn">Delivering</button></td>
+										</tr>
+										<tr>
+											<td width="35%">Food #1</td>
+											<td width="21%">01/01/2001 8:00am</td>
+											<td width="21%">Table #1</td>
+											<td width="23%"><button class="preparing-btn">Preparing</button><button class="deliver-btn">Delivering</button></td>
+										</tr>
+										<tr>
+											<td width="35%">Food #1</td>
+											<td width="21%">01/01/2001 8:00am</td>
+											<td width="21%">Table #1</td>
+											<td width="23%"><button class="preparing-btn">Preparing</button><button class="deliver-btn">Delivering</button></td>
+										</tr>
+								</table>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-3 waiter-request-section text-center">
+				<p>Waiter Requested at Table:</p>
+				<p id="info">(Press to serve the table)</p>
+			</div>
+			<div class="col-md-9 table-num" id="table-num">
+					<button>4</button>
+					<button>3</button>
+					<button>2</button>
+					<button>1</button>
+				
+			</div>
+		</div>
+		</div>
+		</div>
+	</div>
+	<script src="http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/clientside/javascript/OrderManagement.js"></script>
+</body>
+</html>

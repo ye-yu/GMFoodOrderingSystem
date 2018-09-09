@@ -1,19 +1,3 @@
-/*
-function sendRequest(method,param,url,toSet){
-	var ourRequest = new XMLHttpRequest();
-	ourRequest.open(method,url);
-
-	ourRequest.onload = function()
-	{
-		if(ourRequest.readyState== 4 && ourRequest.status == 200)
-			{
-				toSet(ourRequest.responseText);
-				console.log(ourRequest.responseText);
-			}
-	}
-	ourRequest.send(param);
-}
-*/
 function calculateTotal(c){
 		this.sendRequest('GET', '', 'http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/serverside/php/order.php?request=TOTAL&order_id=' + c.orderID, function(a){c.orderTotal = a;});
 }

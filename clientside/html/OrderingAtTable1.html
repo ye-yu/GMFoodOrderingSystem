@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Ordering</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- objects begin -->
+	<!-- load customer script -->
+	<script src="http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/clientside/javascript/Customer.js"></script>
+	<!-- load order script -->
+	<script src="http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/clientside/javascript/Ordering.js"></script>
+	<!-- load food script -->
+	<script src="http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/clientside/javascript/Food.js"></script>
+	<!-- objects end -->
+	
+	<link rel="stylesheet" href="http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/clientside/others/ratereview/starability-css/starability-fade.css">
+	<link rel="stylesheet" href="http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/clientside/others/lib/bootstrap.min.css">
+	<script src="http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/clientside/others/lib/jQuery.js"></script>
+	<script src="http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/clientside/others/lib/popper.js"></script>
+	<script src="http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/clientside/others/lib/bootstrap.min.js"></script>
+	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.css" /> -->
+	<!-- <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script> -->
+	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+	<!-- cookie -->
+	<script src="http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/clientside/javascript/cookie.js"></script>
+	<link rel="stylesheet" href="http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/clientside/css/OrderingAtTable.css">
+	<script src="http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/clientside/javascript/OrderingAtTable1(module).js"></script>
+<script>
+	<!-- $(document).ready(function(){ -->
+			<!-- $('#rate-modal').modal('show') -->
+	<!-- }); -->
+	
+	//bill split selection
+$(document).ready(function(){
+	$('#yes-btn').click(function(){
+		$('#bill-split-pref').modal('hide');
+		$('#bill-split-ok').modal('show');
+		
+	});
+});	
+
+//change num of customer
+$(document).ready(function(){
+	$('#change-cust-num').click(function(){
+		$('#change-cust-modal').modal('show');
+	});
+});	
+
+//animate call-waiter button
+<!-- $(document).ready(function(){ -->
+	<!-- $('#call-waiter').click(function(){ -->
+		<!-- $('#call-waiter').attr('class','buttonload'); -->
+		<!-- $('#call-waiter i').attr('class', 'fa fa-spinner fa-spin'); -->
+	<!-- }); -->
+<!-- }); -->
+	
+$(document).ready(function(){
+	$('#no-split-btn').click(function(){
+		<!-- var orderSummary = document.querySelector('#cust-order-summary'); -->
+		<!-- orderSummary.innerHTML = '<div><span class=col-md-9>Customer 1</span><button class=col-md-3>Order Now</button> </div>'; -->
+		createCustomer();
+		splitTheBillOnClick(false);
+	});
+});
+//once ok button is presses, order can be made
+$(document).ready(function(){
+	$('#ok-btn').click(function(){
+		<!-- var orderSummary = document.querySelector('#cust-order-summary'); -->
+		<!-- console.log(orderSummary); -->
+		<!-- orderSummary.innerHTML = '<div><span class=col-md-9>Customer 1</span><button class=col-md-3>Order Now</button> </div>'; -->
+		createCustomer();
+		splitTheBillOnClick(true);
+	});
+});
+
+$(document).ready(function(){
+	$('#call-bill').click(function(){
+	var a = $('#call-bill i');
+	console.log(a);
+		$('#call-bill i').attr('class','fa fa-spinner fa-spin');
+	});
+});
+</script>
+</head>
+<body>
+<div class='first-layer' id='first-layer'>
+</div>
+<div class='front' id='first-layer-elements'>
+	<div class='loader-box'>
+		<div class='table-number-shower'>
+			<div class='table-number-title'>
+				Table Number:
+			</div>
+			<div class='table-number' id='table-number'>
+				X
+			</div>
+		</div>
+		<div class='loader'>
+		
+		</div>
+		<div class='waiting-text'>
+			<h2 id='waiting-message'>Loading...</h2>
+		</div>
+		<div class='cust-input' id='first-information'>
+		</div>
+	</div>
+</div>
+	<!-- Bill Split Preference Modal -->
+	<div class="modal fade" id="bill-split-pref" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-lg " role="document" >
+			<div class="modal-content" id="modalcontent">
+				<!-- <div class="modal-header" > -->
+					<!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"> -->
+					<!-- <h2><span aria-hidden="true">&times;</span></h2> -->
+					<!-- </button> -->
+				<!-- </div> -->
+				<div class="modal-body text-center" id="modal-body">
+					<b>Split the bill later?</b>
+				</div>
+				<div class="modalbutton">
+					<div>
+						<input type="submit" data-dismiss="modal" id="yes-btn" value="Yes">
+					</div>
+					<div>
+						<input type="submit" data-dismiss="modal" id="no-split-btn" value ="No">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Bill Split Preference-OK Modal -->
+	<div class="modal fade " id="bill-split-ok" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-lg " role="document" >
+			<div class="modal-content" id="modalcontent">
+				<div class="modal-body text-center" id="modal-body">
+					<div>
+						<b>Bill will be split.</b>
+					</div>
+					<div>
+						<h4 class="description">Please order separately.</h4>
+					</div>
+				</div>
+				<div class="modalbutton">
+					<div>
+						<input type="submit" data-dismiss="modal" id="ok-btn" value="Continue">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+		<!-- Rate and Review Modal -->
+	<div class="modal fade" id="rate-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-lg " role="document" >
+			<div class="modal-content" id="modalcontent">
+				<button type="button" class="close text-right" style="margin: 10px 25px 0 0;" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+				</button>
+				<div class="modal-body ratingnreview" id="modal-body">
+					<span>
+						Rating: 
+					</span>
+					<fieldset class="starability-fade rating">
+						<input type="radio" id="rate1" name="rating" value="1" />
+						<label for="rate1" title="Terrible">1 star</label>
+						<input type="radio" id="rate2" name="rating" value="2" />
+						<label for="rate2" title="Not good">2 stars</label>
+						<input type="radio" id="rate3" name="rating" value="3" />
+						<label for="rate3" title="Average">3 stars</label>
+						<input type="radio" id="rate4" name="rating" value="4" />
+						<label for="rate4" title="Very good">4 stars</label>
+						<input type="radio" id="rate5" name="rating" value="5" />
+						<label for="rate5" title="Amazing">5 stars</label>
+					</fieldset>
+					<br/>
+					<div>
+						Review:
+					</div>
+					<div>
+						<textarea class="review-textarea" id='review'>
+						</textarea>
+					</div>
+				</div>
+				<div class="modal-footer text-center">
+					<button  type="button" onclick="submitRating();">Submit Rating & Review</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+		<!-- Change Number of Customer Modal -->
+	<div class="modal fade " id="change-cust-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-lg " role="document" >
+			<div class="modal-content" id="modalcontent">
+				<button type="button" class="close text-right" style="margin: 10px 25px 0 0;" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+				</button>
+				<div class="modal-body text-center" id="modal-body">
+					Enter number of customer:
+				</div>
+				<div>
+					<h4 class="description text-center" id="new-cust-input-message"></h4>
+				</div>
+				<input type="text" id="new-cust-input">
+				<div class="modal-footer text-center">
+					<button  type="button" class="btn btn-primary" id="yes-btn" onclick="changeNumberOfCustomerOnClick();">OK</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="modal fade " id="cannot-change-cust-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-lg " role="document" >
+			<div class="modal-content" id="modalcontent">
+				<button type="button" class="close text-right" style="margin: 10px 25px 0 0;" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+				</button>
+				<div class="modal-body text-center" id="modal-body">
+					Order has been made.
+				</div>
+				<div>
+					<h4 class="description text-center" id="new-cust-input-message">You may no longer change the number of customer.</h4>
+				</div>
+				<div class="modal-footer text-center">
+					<button  type="button" class="btn btn-primary" id="cannot-change-btn">OK</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- Notifications -->
+	<div class="container-fluid">
+	</div>
+	<div class="notification-bar">
+		<span id="tnum">Table Number: <span id='tablenumbertop'>X</span></span>
+		<span id="cnum">Number of Customer: <span id='custnumbertop'>Y</span></span>
+	</div>
+	<!-- Order Section -->
+	<div class="container-fluid cust-order-section">
+	<div class="row">
+		<!-- Order Summary -->
+		<div class="ordersummary col-md-9" id="cust-order-summary">
+			<!-- <div> -->
+				<!-- <span class="customername"> -->
+					<!-- Customer 1 -->
+				<!-- </span> -->
+				<!-- <span class="ordernow"> -->
+					<!-- <button> -->
+						<!-- Order Now -->
+					<!-- </button> -->
+				<!-- </span> -->
+			<!-- </div> -->
+			<!-- <div class="orderlist" id="orderlist"> -->
+				<!-- <hr class="orderdividor"/> -->
+				<!-- <span class="foodname"> -->
+					<!-- 1. Food #1 -->
+				<!-- </span> -->
+				<!-- <span class="foodquantity"> -->
+					<!-- &times; 2 -->
+				<!-- </span> -->
+				<!-- <span class="foodstatus"> -->
+					<!-- Ordering -->
+				<!-- </span> -->
+				<!-- <hr class="orderdividor"/> -->
+				<!-- <span class="foodname"> -->
+					<!-- 1. Food #1 -->
+				<!-- </span> -->
+				<!-- <span class="foodquantity"> -->
+					<!-- &times; 2 -->
+				<!-- </span> -->
+				<!-- <span class="foodstatus" id="orderstatus-1-1"> -->
+					<!-- Ordering -->
+				<!-- </span> -->
+				<!-- <hr class="orderdividor"/> -->
+				<!-- <span class="foodname"> -->
+					<!-- 1. Food #1 -->
+				<!-- </span> -->
+				<!-- <span class="foodquantity"> -->
+					<!-- &times; 2 -->
+				<!-- </span> -->
+				<!-- <span class="foodstatus"> -->
+					<!-- Ordering -->
+				<!-- </span> -->
+			<!-- </div> -->
+			<!-- <hr class="customerdividor"/> -->
+		</div>
+		<!-- Buttons -->
+		<div class="col-md-3 text-center buttons" id="table-buttons">
+			<!-- <div> -->
+				<!-- <button id="change-cust-num">Change number of customer</button> -->
+			<!-- </div> -->
+			<div>
+				<button id="call-waiter" onclick="setDisableTimer(this);callWaiterOnClick(this);">Call Waiter</button>
+			</div>
+			<div>
+				<button id="call-bill" onclick="setDisableTimer(this);callBillOnClick(this);">Request for Bill</button>
+			</div>
+			<div>
+				<text class="description text-center" id="waiter-message"></text>
+			</div>
+		</div>
+	</div>
+	</div>
+	<!-- <script src="app.js"></script> -->
+</body>
+</html>

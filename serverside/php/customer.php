@@ -59,18 +59,24 @@ elseif(isset($queries['action']))
 	switch($queries['action'])
 	{
 		case "PLACE_ORDER":
+			print_r($_POST);
 			$_SESSION['cid'] = $_POST['id'];
 			$_SESSION['cname'] = $_POST['name'];
 			$_SESSION['cphone_no'] = $_POST['phone_no'];
+			if($_SESSION['cphone_no'] === "undefined")
+				$_SESSION['cphone_no'] = "";
 			$_SESSION['corder'] = $_POST['order'];
 			$req = $connection -> query("select insert_customer('" . $_SESSION['cid'] . "', '" . $_SESSION['cname'] . "', '" . $_SESSION['cphone_no'] . "')");
+			// if(!$req)
+				// echo (mysql_error());
 			$order = json_decode($_SESSION['corder']);
 			print_r($order);
-			$orderid = $order -> orderID;
 			$tableno = $order -> tableNo;
+			$orderid=file_get_contents("http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/serverside/php/order.php?request=FIND_ID&cid=" . $_SESSION['cid'] . "&tno=" . $tableno);
 			$orderlist = $order -> orderFoods;
 			for($i = 0; $i < count($orderlist); $i++)
 			{
+				echo("select add_order('" . $orderid . "', '" . $orderlist[$i] -> foodid . "', " . $orderlist[$i] -> foodquantity . ")");
 				if($connection -> query("select add_order('" . $orderid . "', '" . $orderlist[$i] -> foodid . "', " . $orderlist[$i] -> foodquantity . ")"))
 					echo("Added");
 			}

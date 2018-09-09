@@ -48,7 +48,17 @@ if(isset($queries['request']))
 			$rows = [];
 			while($row = $res -> fetch_assoc())
 			{
-				array_push($rows, $row);
+				array_push($rows, $row['tableno']);
+			}
+			echo (json_encode($rows));
+		}
+		case "WAITER":
+		{
+			$res = $connection -> query("select tableno from diningtable where tablestatus = 'Waiter'");
+			$rows = [];
+			while($row = $res -> fetch_assoc())
+			{
+				array_push($rows, $row['tableno']);
 			}
 			echo (json_encode($rows));
 		}

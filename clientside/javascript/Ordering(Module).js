@@ -190,9 +190,6 @@ function placeOrder()
 {
 	if(checkIfFromTable())
 	{
-		customer.order = new Ordering();
-		customer.order.orderID = orderid;
-		customer.order.tableNo = tableNumber;
 		customer.order.orderFoods = trimCart();
 		customer.placeOrder(function(a){
 			console.log(a);
@@ -221,5 +218,8 @@ $(document).ready(function() {
 	{
 		customer = new Customer();
 		customer.custName = customerNumber;
+		customer.custID = customerid;
+		customer.order = new Ordering();
+		customer.order.tableNo = tableNumber;
 	}
 });

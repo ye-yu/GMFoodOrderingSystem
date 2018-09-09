@@ -8,13 +8,14 @@
 	{
 		$url = "http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/serverside/php/customer.php?request=FIND_ID&name=" . urlencode($_POST['customer_number']);
 		$cid=file_get_contents($url);
-		$oid=file_get_contents("http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/serverside/php/order.php?request=FIND_ID&cid=" . $cid . "&tno=" . $_POST['table_number']);
+		// $oid=file_get_contents("http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/serverside/php/order.php?request=FIND_ID&cid=" . $cid . "&tno=" . $_POST['table_number']);
+		// echo($oid);
 		//output, you can also save it locally on the server
 		echo("<script>");
 		echo("var customerNumber = '" . $_POST['customer_number'] . "';");
 		echo("var tableNumber = '" . $_POST['table_number'] . "';");
 		echo("var customerid = '" . $cid . "';");
-		echo("var orderid = '" . $oid . "';");
+		echo("var orderid = null;");
 		echo("</script>");
 	}
 ?>

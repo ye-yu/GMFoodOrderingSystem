@@ -42,6 +42,7 @@ CREATE TABLE `foodorder`.`orderlist` (
     `foodid` CHAR(10) NOT NULL DEFAULT '0',
     `orderQuantity` SMALLINT UNSIGNED NOT NULL,
     `orderStatus` VARCHAR(9) NOT NULL DEFAULT 'Accepted' CHECK (orderStatus IN ('Accepted', 'Preparing', 'Prepared')),
+    `preparedQuantity` SMALLINT UNSIGNED NOT NULL DEFAULT 0,
     PRIMARY KEY(`orderid`, `foodid`),
     FOREIGN KEY(`orderid`) REFERENCES ordering(`orderid`),
     FOREIGN KEY(`foodid`) REFERENCES food(`foodid`)
