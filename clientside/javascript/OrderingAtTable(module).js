@@ -1,5 +1,5 @@
 var noOfCustomer = 1;
-var tableNumber = 5;
+var tableNumber = 1;
 var reserved = false;
 var customers = [];
 var requestSent = false;
@@ -246,55 +246,7 @@ function dismissWaiting(){
 		noOfCustomer.text("Number of Customer: "+ noOfCustomer);
 	});
 } 
-/*
-function splitTheBillYesOnClick(noOfCustomer){
-	for (var i=0; i<noOfCustomer; i++){
-		 customers[i] = {
-			tableNumber = getTableNum();
-		}
-		customers.Ordering();
-	}
-}
-*/
-/*
-function refreshCustomerAndFoodOrder(){
-	var customersDOM;
-	customersDOM = document.getElementById('customerOrders');
-	for(i=0; i<noOfCustomer; i++){
-		var subElement;
-		subElement += document.createElement('<div>');
-		subElement.attr('id','customer');
-		subElement.innerHTML += customerWithOrders[i]; 
-		customersDOM.appendChild(subElement);
-	}
-}
-function startOrdering(customerNumber){
-	var orderForm = document.createElement('<form>');
-	orderForm = createForm(orderForm,customerNumber);
-	orderForm.submit();
-}
-function createForm(orderForm,customerNumber){
-	orderForm.method = 'post';
-	Set orderform.action = '/ordering.html';
-	var subElement;
-	subElement = document.createElement('input');
-	subElement.type = 'hidden';
-	subElement.name = 'order from';
-	subElement.value = 'table';
-	orderForm.appendChild(subElement);
-	subElement = document.createElement('input');
-	subElement.type = 'hidden';
-	subElement.name = 'customer';
-	subElement.value = customerNumber + " " + tableNumber;
-	orderForm.appendChild(subElement);
-	subElement = document.createElement('input');
-	subElement.type = 'hidden';
-	subElement.name = 'orders';
-	subElement.value = JSON.stringify(customersWithOrder[customerNumber]);
-	orderForm.appendChild(subElement);
-	return orderForm;
-}
-*/
+
 var waiterCalled = false;
 function setDisableTimer(elem)
 {
@@ -316,6 +268,7 @@ function setDisableTimer(elem)
 	, 5000);
 }
 
+var billCalled = false;
 function callBillOnClick(elem)
 {
 	clearInterval(checkfoodinterval);
@@ -330,6 +283,9 @@ function callBillOnClick(elem)
 		'http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/serverside/php/table.php?action=BILLING',
 		function(a)
 		{
+			if(billCalled)
+				return;
+			billCalled = true;
 			for(var i = 0; i < noOfCustomer; i++)
 			{
 				document.getElementById('customerbutton-' + (i + 1)).innerHTML = 'Rate & Review';
@@ -459,11 +415,14 @@ function submitRating()
 	console.log($('#rate-modal').val());
 	var cnumber = $('#rate-modal').val();
 	var rating = document.getElementsByName('rating');
+	var review = document.getElementById('review').value;
+	var rate = 0;
 	for(var i = 0; i < rating.length; i++)
 	{
 		if(rating[i].checked)
 		{
 			console.log("Rated: " + rating[i].value);
+			rate = rating[i].value;
 			break;
 		}
 	}
@@ -471,6 +430,15 @@ function submitRating()
 	$('#rate-modal').modal('hide');
 	document.getElementById('customerbutton-' + cnumber).innerHTML = 'Thank you!';
 	document.getElementById('customerbutton-' + cnumber).disabled = true;
+	sendRequest(
+		'POST',
+		'name=' + tableNumber + ' ' + cnumber + '&table_no=' + tableNumber + "&rate=" + rate + "&review=" + review,
+		'http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/serverside/php/customer.php?action=FEEDBACK',
+		function(a)
+		{
+			console.log(a);
+		}
+	);
 }
 
 function waitingOnPayment()

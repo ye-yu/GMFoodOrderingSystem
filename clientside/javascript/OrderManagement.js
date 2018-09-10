@@ -2,26 +2,9 @@ var orderandfoodlist = [];
 var waitinglist = [];
 var preparing = [];
 var prepared = [];
-var checkfoodlist = setInterval(function(){
-	sendRequest(
-		'GET',
-		'',
-		'http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/serverside/php/order.php?request=ORDERED_FOOD_LIST',
-		function(a){
-			orderandfoodlist = JSON.parse(a);
-			updatefoodlist();
-		}
-	);
-	sendRequest(
-		'GET',
-		'',
-		'http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/serverside/php/table.php?request=WAITER',
-		function(a){
-			waitinglist = JSON.parse(a);
-			updatetablelist();
-		}
-	);
-}, 5000);
+var lastentryno = '0';
+
+var checkfoodlist = setInterval(refreshRequest, 5000);
 
 var _parent = null;
 function preparingFood(eno)
@@ -42,7 +25,7 @@ function preparingFood(eno)
 	pb.disabled = true;
 	var db = document.getElementById('d' + eno);
 	db.disabled = false;
-	preparing.push(eno);
+//	preparing.push(eno);
 }
 
 function donePreparingFood(eno)
@@ -55,8 +38,7 @@ function donePreparingFood(eno)
 			console.log(a);
 		}
 	);
-	prepared.push(eno);
-	console.log("This food is done prepared.");
+//	prepared.push(eno);
 }
 
 function updatetablelist()
@@ -127,12 +109,17 @@ function isInPreparingAndRemove(oid, fid, qty)
 function updatefoodlist()
 {
 	var stg = '';
+	console.log(orderandfoodlist);
 	for(let i = 0; i < orderandfoodlist.length; i++)
 	{
 		var isDone = checkEntry(prepared, orderandfoodlist[i].entryno);
 		stg += '<tr ordertype="' + orderandfoodlist[i].orderinfo.split(" ")[0] + '">';
 		stg += '<td width="35%">' + orderandfoodlist[i].foodname + ' &times; ' + orderandfoodlist[i].orderQuantity + '</td>';
 		stg += '<td width="21%">' + orderandfoodlist[i].orderdate + '</td>';
+		stg += '<td width="21%">' + orderandfoodlist[i].orderinfo + '</td>';
+		stg += '<td width="23%"><button class="preparing-btn" id="p' + orderandfoodlist[i].entryno + '" onclick="preparingFood(\'' + orderandfoodlist[i].entryno + '\');">Preparing ' + orderandfoodlist[i].orderQuantity + '</button><button id="d' + orderandfoodlist[i].entryno + '" class="deliver-btn" disabled onclick="donePreparingFood(\'' + orderandfoodlist[i].entryno + '\');">Done Preparing</button></td>';
+
+		/*
 		if(isDone)
 			stg += '<td width="21%" style="background-color: #a9dea9;">' + orderandfoodlist[i].orderinfo + '</td>';
 		else	
@@ -148,9 +135,10 @@ function updatefoodlist()
 			stg += '<td width="23%"><button class="preparing-btn" id="p' + orderandfoodlist[i].entryno + '" style="background-color: #ddefaa;" disabled>Preparing ' + orderandfoodlist[i].orderQuantity + '</button><button id="d' + orderandfoodlist[i].entryno + '" class="deliver-btn" onclick="donePreparingFood(\'' + orderandfoodlist[i].entryno + '\');">Done Preparing</button></td>';
 		else
 			stg += '<td width="23%"><button class="preparing-btn" id="p' + orderandfoodlist[i].entryno + '" onclick="preparingFood(\'' + orderandfoodlist[i].entryno + '\');">Preparing ' + orderandfoodlist[i].orderQuantity + '</button><button id="d' + orderandfoodlist[i].entryno + '" class="deliver-btn" disabled onclick="donePreparingFood(\'' + orderandfoodlist[i].entryno + '\');">Done Preparing</button></td>';
+		*/
 		stg += '</tr>';
 	}
-	document.getElementById('showfoodlisthere').innerHTML = stg;
+	document.getElementById('showfoodlisthere').innerHTML += stg;
 }
 $(document).ready(function(){
 			$(".preparing-btn").click(function(){
@@ -185,14 +173,28 @@ $(document).ready(function(){
 			$(this).remove();
 		});
 	});
+	refreshRequest();
+});
 
-//
+function check()
+{
+	console.log("Script is loaded.");
+}
+
+function refreshRequest()
+{
 	sendRequest(
 		'GET',
 		'',
-		'http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/serverside/php/order.php?request=ORDERED_FOOD_LIST',
+		'http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/serverside/php/order.php?request=ORDERED_FOOD_LIST&last_entry_no=' +  lastentryno,
 		function(a){
 			orderandfoodlist = JSON.parse(a);
+			for(let i = 0; i < orderandfoodlist.length; i++)
+			{
+				let en = parseInt(lastentryno);
+				if(en < parseInt(orderandfoodlist[i].entryno))
+					lastentryno = orderandfoodlist[i].entryno;
+			}
 			updatefoodlist();
 		}
 	);
@@ -205,10 +207,4 @@ $(document).ready(function(){
 			updatetablelist();
 		}
 	);
-//
-});
-
-function check()
-{
-	console.log("Script is loaded.");
 }

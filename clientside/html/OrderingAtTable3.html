@@ -24,8 +24,9 @@
 	<!-- cookie -->
 	<script src="http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/clientside/javascript/cookie.js"></script>
 	<link rel="stylesheet" href="http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/clientside/css/OrderingAtTable.css">
-	<script src="http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/clientside/javascript/OrderingAtTable3(module).js"></script>
+	<script src="http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/clientside/javascript/OrderingAtTable(module).js"></script>
 <script>
+	var tableNumber = parseInt(window.location.toString().split(".")[0][window.location.toString().split(".")[0].length - 1]);
 	<!-- $(document).ready(function(){ -->
 			<!-- $('#rate-modal').modal('show') -->
 	<!-- }); -->
@@ -176,7 +177,7 @@ $(document).ready(function(){
 						Review:
 					</div>
 					<div>
-						<textarea class="review-textarea" id='review'>
+						<textarea class="review-textarea" id="review" maxlength="500">
 						</textarea>
 					</div>
 				</div>

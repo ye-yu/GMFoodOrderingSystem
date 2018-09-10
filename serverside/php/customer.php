@@ -92,6 +92,13 @@ elseif(isset($queries['action']))
 				echo (0);
 			break;
 		case "FEEDBACK":
+		//$_POST['name'] $_POST['table_no'] $_POST['rate'] $_POST['review'] 
+			$res = $connection -> query("call add_feedback('" . $_POST['name'] . "', " . $_POST['table_no'] . ", " . $_POST['rate'] . ", '" . $_POST['review'] . "')");
+			if (!$res)
+				echo ("call add_feedback('" . $_POST['name'] . "', " . $_POST['table_no'] . ", " . $_POST['rate'] . ", '" . $_POST['review'] . "')");
+			else
+				echo ("call add_feedback('" . $_POST['name'] . "', " . $_POST['table_no'] . ", " . $_POST['rate'] . ", '" . $_POST['review'] . "')");
+				//echo (true);
 			showLog ("Feedback of customer is sent.");
 			break;
 		case "SET_PHONE_NO":

@@ -8,7 +8,7 @@ function makeConnection()
 	if ($connection -> connect_error)
 		die("Connection failed: " . $connection->connect_error);
 }
-$show = true;
+$show = false;
 function showLog($item)
 {
 	global $show;
@@ -32,7 +32,7 @@ if(isset($queries['request']))
 	switch($queries['request'])
 	{
 		case "UNPAID_ORDERS":
-			$res = $connection -> query("select orderid from ordering where tableno = ". $queries['table_no'] ." and ((select creditcardno from receipt where ordering.orderid = receipt.orderid) is NULL or (orderid not in (select orderid from receipt)))");
+			$res = $connection -> query("select orderid from ordering where (tableno = " . $queries['table_no'] . " or customerid in (select customerid from customer where customer.customerphoneno =  '" . $queries['phone_no'] . "'))and ((select creditcardno from receipt where ordering.orderid = receipt.orderid) is NULL or (orderid not in (select orderid from receipt)))");
 			$rows = array();
 			while ($row = $res -> fetch_assoc())
 				array_push($rows, $row['orderid']);
