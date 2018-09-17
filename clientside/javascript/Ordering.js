@@ -1,5 +1,5 @@
 function calculateTotal(c){
-		this.sendRequest('GET', '', 'http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/serverside/php/order.php?request=TOTAL&order_id=' + c.orderID, function(a){c.orderTotal = a;});
+		this.sendRequest('GET', '', 'http://' + document.location.host + '/dashboard/workspace/SEF1819/GMFoodOrderingSystem/serverside/php/order.php?request=TOTAL&order_id=' + c.orderID, function(a){c.orderTotal = a;});
 }
 	
 function loadOrder(c, id)
@@ -7,7 +7,7 @@ function loadOrder(c, id)
 	sendRequest(
 		'GET', 
 		'', 
-		'http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/serverside/php/order.php?request=ORDER&order_id=' + id,
+		'http://' + document.location.host + '/dashboard/workspace/SEF1819/GMFoodOrderingSystem/serverside/php/order.php?request=ORDER&order_id=' + id,
 		function(str)
 		{
 			var j = JSON.parse(str);
@@ -24,7 +24,7 @@ function loadOrder(c, id)
 
 function getOrderFromDatabase(c)
 {
-	sendRequest('GET', '', 'http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/serverside/php/order.php?request=ID&from=ordering',
+	sendRequest('GET', '', 'http://' + document.location.host + '/dashboard/workspace/SEF1819/GMFoodOrderingSystem/serverside/php/order.php?request=ID&from=ordering',
 	function(a)
 	{ c.orderID = a;}
 	);

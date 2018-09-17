@@ -7,7 +7,7 @@ function getFoodsByCategory()
 	sendRequest(
 		'GET',
 		'',
-		'http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/serverside/php/order.php?request=FOOD&food_id=ALL&group_by=TRUE',
+		'http://' + document.location.host + '/dashboard/workspace/SEF1819/GMFoodOrderingSystem/serverside/php/order.php?request=FOOD&food_id=ALL&group_by=TRUE',
 		function(a)
 		{
 			foodsByCategory = JSON.parse(a);
@@ -103,18 +103,20 @@ function showFoodByCategory(category)
 function showFoodCategory()
 {
 	document.getElementById('selected-category').innerHTML = ' ';
+	document.getElementById('category-list').innerHTML = ' ';
 	var categories = Object.keys(foodsByCategory);
 	document.getElementById('ordering-content').innerHTML = '';
 	var itemlisting = null;
 	var string = '';
 	for(var i = 0; i < categories.length; i++) {
+		document.getElementById('category-list').innerHTML += '<a onclick="showFoodByCategory(\'' + categories[i] + '\')"><li>' + categories[i] + '</li></a>';
 		if(i % 3 == 0){
 				itemlisting = document.createElement('div');
 				itemlisting.className = 'container-fluid bg-3 text-center';
 				itemlisting.innerHTML = '';
 		string += '                       <div class="row">';
 		}
-		string += '<a href="#" onclick="showFoodByCategory(\'' + categories[i] + '\')">';
+		string += '<a onclick="showFoodByCategory(\'' + categories[i] + '\')">';
 		string += '<div class="col-sm-4">';
 		string += '  <div class="thumbnail">        ';
 		if(foodsByCategory[categories[i]][0].foodimagelink == null)
@@ -193,8 +195,13 @@ function placeOrder()
 		customer.order.orderFoods = trimCart();
 		customer.placeOrder(function(a){
 			console.log(a);
-			window.location = 'http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/clientside/html/OrderingAtTable' + tableNumber +'.html'
+			window.location = 'http://' + document.location.host + '/dashboard/workspace/SEF1819/GMFoodOrderingSystem/clientside/html/OrderingAtTable' + tableNumber +'.html'
 			});
+	}
+	else
+	{
+		localStorage.setItem('orders', JSON.stringify(cart));
+		window.location = "http://" + document.location.host + "/dashboard/workspace/SEF1819/GMFoodOrderingSystem/clientside/html/Takeaway.html";
 	}
 }
 

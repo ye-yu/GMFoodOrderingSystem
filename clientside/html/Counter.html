@@ -1,0 +1,67 @@
+<html>
+<head>
+	<style>
+	</style>
+	<link rel="stylesheet" href="http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/clientside/css/Counter.css" />
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script>
+		document.write("<base href='http://" + document.location.host + "' />");
+	</script>
+	<script>
+	function sendRequest(method,param,url,toSet){
+		var ourRequest = new XMLHttpRequest();
+		ourRequest.open(method,url);
+		ourRequest.onload = function()
+		{
+			if(ourRequest.readyState== 4 && ourRequest.status == 200)
+				{
+					toSet(ourRequest.responseText);
+					console.log(ourRequest.responseText);
+				}
+		}
+		if (method == 'POST')
+			ourRequest.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+		ourRequest.send(param);
+	}
+	</script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.css" />
+	<script src="dashboard/workspace/SEF1819/GMFoodOrderingSystem/clientside/javascript/Counter.js"></script>
+</head>
+<body>
+	<div class="container-fluid">
+		<p id="pg-title">Counter<p>
+	</div>
+	<div class="container-fluid">
+		<div id="cust-order-summary1">
+			<div class="search-entry text-center">
+				<p class="">Phone Number / Table Number</p>
+				<input type="text" id="search-entry"></input><button id="table-order-summary" onclick="searchOrder(this);">Enter</button>
+			</div>
+	</div>
+	</div>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-3 bill-request-section text-center">
+					<p>Bill Requested at Table:</p>
+					<p id="info">(Press to serve the table)</p>
+				</div>
+				<div class="col-md-9 table-num" id="table-num">
+						Loading
+				</div>
+			</div>
+		</div>
+
+
+<div class="modal bd-example-modal-lg" id="pop-up" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" >
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content text-center">
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -56,7 +56,7 @@ function waitingOnReservation(){
 	sendCheckTableRequest(
 		'GET',
 		'',
-		'http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/serverside/php/table.php?request=STATUS&table_no=' + tableNumber,
+		'http://' + document.location.host + '/dashboard/workspace/SEF1819/GMFoodOrderingSystem/serverside/php/table.php?request=STATUS&table_no=' + tableNumber,
 		function(a)
 		{
 			reserved = true;
@@ -93,7 +93,7 @@ function customerButton(n)
 	console.log("Order by " + n.value);
 	var theform = document.createElement('form');
 	theform.method = 'POST';
-	theform.action = 'http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/clientside/html/Ordering.php';
+	theform.action = 'http://' + document.location.host + '/dashboard/workspace/SEF1819/GMFoodOrderingSystem/clientside/html/Ordering.php';
 	var thevalue = document.createElement('input');
 	thevalue.type = 'hidden';
 	thevalue.name = 'customer_number';
@@ -280,7 +280,7 @@ function callBillOnClick(elem)
 	sendRequest(
 		'POST',
 		'table_no=' + tableNumber,
-		'http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/serverside/php/table.php?action=BILLING',
+		'http://' + document.location.host + '/dashboard/workspace/SEF1819/GMFoodOrderingSystem/serverside/php/table.php?action=BILLING',
 		function(a)
 		{
 			if(billCalled)
@@ -313,7 +313,7 @@ function callWaiterOnClick(elem)
 	sendRequest(
 		'POST',
 		'table_no=' + tableNumber,
-		'http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/serverside/php/table.php?action=WAITER',
+		'http://' + document.location.host + '/dashboard/workspace/SEF1819/GMFoodOrderingSystem/serverside/php/table.php?action=WAITER',
 		function(a)
 		{
 			
@@ -363,11 +363,11 @@ function startDiningHereManualOnClick()
 		a.disabled = true;
 		sendRequest(
 			'POST',
-			'no_of_cust=' + noOfCustomer,
-			'http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/serverside/php/table.php?action=RESERVE',
+			'no_of_cust=' + noOfCustomer + '&table_no=' + tableNumber,
+			'http://' + document.location.host + '/dashboard/workspace/SEF1819/GMFoodOrderingSystem/serverside/php/table.php?action=RESERVE',
 			function(b)
 			{
-				if(b == '')
+				if(b == '' || b == '0')
 				{
 					document.getElementById('manual-no-of-cust').disabled = false;
 					document.getElementById('manual-no-of-cust').value = '';
@@ -433,7 +433,7 @@ function submitRating()
 	sendRequest(
 		'POST',
 		'name=' + tableNumber + ' ' + cnumber + '&table_no=' + tableNumber + "&rate=" + rate + "&review=" + review,
-		'http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/serverside/php/customer.php?action=FEEDBACK',
+		'http://' + document.location.host + '/dashboard/workspace/SEF1819/GMFoodOrderingSystem/serverside/php/customer.php?action=FEEDBACK',
 		function(a)
 		{
 			console.log(a);
@@ -449,7 +449,7 @@ function waitingOnPayment()
 	sendRequest(
 		'GET',
 		'',
-		'http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/serverside/php/table.php?request=STATUS&table_no=' + tableNumber,
+		'http://' + document.location.host + '/dashboard/workspace/SEF1819/GMFoodOrderingSystem/serverside/php/table.php?request=STATUS&table_no=' + tableNumber,
 		function(a)
 		{
 			console.log("Checked payment");
@@ -459,7 +459,7 @@ function waitingOnPayment()
 				sendRequest(
 					'POST',
 					'table_no=' + tableNumber,
-					'http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/serverside/php/table.php?action=UNRESERVE',
+					'http://' + document.location.host + '/dashboard/workspace/SEF1819/GMFoodOrderingSystem/serverside/php/table.php?action=UNRESERVE',
 					function(b)
 					{
 						$.cookie('first', '');
@@ -480,7 +480,7 @@ function refreshCustomerAndFoodOrderArray()
 	sendRequest(
 		'GET',
 		'',
-		'http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/serverside/php/order.php?request=STATUS_FROM_TABLE&table_no=' + tableNumber + '&no_of_cust=' + noOfCustomer,
+		'http://' + document.location.host + '/dashboard/workspace/SEF1819/GMFoodOrderingSystem/serverside/php/order.php?request=STATUS_FROM_TABLE&table_no=' + tableNumber + '&no_of_cust=' + noOfCustomer,
 		function(a)
 		{
 			customersWithOrder = JSON.parse(a);

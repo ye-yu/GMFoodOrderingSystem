@@ -6,9 +6,9 @@
 <?php
 	if(isset($_POST['customer_number']))
 	{
-		$url = "http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/serverside/php/customer.php?request=FIND_ID&name=" . urlencode($_POST['customer_number']);
+		$url = "http://".$_SERVER['HTTP_HOST']."/dashboard/workspace/SEF1819/GMFoodOrderingSystem/serverside/php/customer.php?request=FIND_ID&name=" . urlencode($_POST['customer_number']);
 		$cid=file_get_contents($url);
-		// $oid=file_get_contents("http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/serverside/php/order.php?request=FIND_ID&cid=" . $cid . "&tno=" . $_POST['table_number']);
+		// $oid=file_get_contents("dashboard/workspace/SEF1819/GMFoodOrderingSystem/serverside/php/order.php?request=FIND_ID&cid=" . $cid . "&tno=" . $_POST['table_number']);
 		// echo($oid);
 		//output, you can also save it locally on the server
 		echo("<script>");
@@ -20,9 +20,12 @@
 	}
 ?>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+	<script>
+		document.write("<base href='http://" + document.location.host + "' />");
+	</script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link rel="stylesheet" href="http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/clientside/css/Ordering.css">
-<script src="http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/clientside/others/lib/jQuery.js"></script>
+<link rel="stylesheet" href="dashboard/workspace/SEF1819/GMFoodOrderingSystem/clientside/css/Ordering.css">
+<script src="dashboard/workspace/SEF1819/GMFoodOrderingSystem/clientside/others/lib/jQuery.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script>
 function sendRequest(method,param,url,toSet){
@@ -41,15 +44,15 @@ function sendRequest(method,param,url,toSet){
 	ourRequest.send(param);
 }
 </script>
-<script src="http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/clientside/javascript/bootstrap-number-input.js" ></script><!-- must include if have input number plus minus -->	
+<script src="dashboard/workspace/SEF1819/GMFoodOrderingSystem/clientside/javascript/bootstrap-number-input.js" ></script><!-- must include if have input number plus minus -->	
 <!-- load customer script -->
-<script src="http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/clientside/javascript/Customer.js"></script>
+<script src="dashboard/workspace/SEF1819/GMFoodOrderingSystem/clientside/javascript/Customer.js"></script>
 <!-- load order script -->
-<script src="http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/clientside/javascript/Ordering.js"></script>
+<script src="dashboard/workspace/SEF1819/GMFoodOrderingSystem/clientside/javascript/Ordering.js"></script>
 <!-- load food script -->
-<script src="http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/clientside/javascript/Food.js"></script>
+<script src="dashboard/workspace/SEF1819/GMFoodOrderingSystem/clientside/javascript/Food.js"></script>
 <!-- objects end -->
-<script src="http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/clientside/javascript/Ordering(Module).js"></script>
+<script src="dashboard/workspace/SEF1819/GMFoodOrderingSystem/clientside/javascript/Ordering(Module).js"></script>
 <style>
 /**********************************
 Responsive navbar-brand image CSS
@@ -121,13 +124,7 @@ line height is 20px by default so add 30px top and bottom to equal the new .navb
         <a class="navbar-brand" href="#"><img src="http://placehold.it/432x80&text=Logo" alt="logo"> </a>
         <h3 class="navbar-text">Restaurant Name</h3>
       </div>
-      <div id="navbar1" class="navbar-collapse collapse">
-        <ul class="nav navbar-nav navbar-right">
-          <li class="active"><a href="1.html">Home</a></li>
-          <li><a href="#">Contact Us</a></li>
-          <li><a href="#">Locate Us</a></li>
-        </ul>
-      </div>
+
       <!--/.nav-collapse --> 
     </div>
     <!--/.container-fluid --> 
@@ -140,8 +137,8 @@ line height is 20px by default so add 30px top and bottom to equal the new .navb
 		<div class="col-sm-3 sidenav">   
 			<br>
 			<form>		
-				<h2>Select by:</h2>
-				<div class="radio">
+				<h2>Select category:</h2>
+				<!-- <div class="radio">
 					<label><input type="radio" name="sel_by" checked>Category</label>
 				</div>
 				<div class="radio">
@@ -170,7 +167,12 @@ line height is 20px by default so add 30px top and bottom to equal the new .navb
 					<div class="checkbox">
 						<label><input type="checkbox" value="">Add-ons</label>
 					</div>
-				</span>
+				</span> -->
+				<ul class="category-list" id="category-list">
+					<a><li>Food Category</li></a>
+					<a><li>Food Category</li></a>
+					<a><li>Food Category</li></a>
+				</ul>
 			</form>		
 		</div>
 
@@ -178,7 +180,7 @@ line height is 20px by default so add 30px top and bottom to equal the new .navb
 		<div class="container-fluid">
 		  <div class="row">
 				<div class="col-md-6" style="padding: 10px;">
-				   <a href="#" style="font-size: 30pt;" onclick="showFoodCategory();">Categories</a>
+				   <a style="font-size: 30pt;" onclick="showFoodCategory();">Categories</a>
 				   <span id="selected-category" style="font-size: 20pt;">
 				   </span>
 				</div>

@@ -25,44 +25,11 @@ if(isset($queries['request']))
 	//print_r($connection);
 	switch($queries['request'])
 	{
-		case "STATUS":
-			$row = NULL;
-			if(isset($queries['seat_size']))
-			{
-				$res = $connection -> query("select tableno from diningtable where seatQuantity >= " . $queries['seat_size'] . " order by seatQuantity asc");
-				$rows = $res -> fetch_assoc();
-				$row = $rows['tableno'];
-				
-			}
-			else if(isset($queries['table_no']))
-			{
-				$res = $connection -> query("select tableStatus from diningtable where tableno = " . $queries['table_no']);
-				$rows = $res -> fetch_assoc();
-				$row = $rows['tableStatus'];
-			}
-			echo($row);
+		case "PROMOTION":
+			$path    = '../../clientside/html/assets/promotional';
+			$files = scandir($path);
+			echo(json_encode($files));
 			break;
-		case "BILLING":
-		{
-			$res = $connection -> query("select tableno from diningtable where tablestatus = 'Billing'");
-			$rows = [];
-			while($row = $res -> fetch_assoc())
-			{
-				array_push($rows, $row['tableno']);
-			}
-			echo (json_encode($rows));
-			break;
-		}
-		case "WAITER":
-		{
-			$res = $connection -> query("select tableno from diningtable where tablestatus = 'Waiter'");
-			$rows = [];
-			while($row = $res -> fetch_assoc())
-			{
-				array_push($rows, $row['tableno']);
-			}
-			echo (json_encode($rows));
-		}
 	}
 	
 }

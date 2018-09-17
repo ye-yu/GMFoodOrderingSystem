@@ -16,7 +16,7 @@ function sendRequest(method,param,url,toSet){
 */
 function getFoodFromDatabase(c)
 {
-	sendRequest('GET', '', 'http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/serverside/php/order.php?request=ID&from=food',
+	sendRequest('GET', '', 'http://' + document.location.host + '/dashboard/workspace/SEF1819/GMFoodOrderingSystem/serverside/php/order.php?request=ID&from=food',
 	function(a)
 	{ c.orderID = a;}
 	);
@@ -24,7 +24,7 @@ function getFoodFromDatabase(c)
 
 function loadFood(c, id)
 {
-	sendRequest('GET', '', 'http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/serverside/php/order.php?request=FOOD&food_id=' + id, 
+	sendRequest('GET', '', 'http://' + document.location.host + '/dashboard/workspace/SEF1819/GMFoodOrderingSystem/serverside/php/order.php?request=FOOD&food_id=' + id, 
 	function(a){
 		var s = JSON.parse(a);
 		c.foodID = id;

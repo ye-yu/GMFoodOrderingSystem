@@ -75,12 +75,12 @@ if(isset($queries['request']))
 					];
 					array_push($foodids, $assocarr);
 				}
-				$row['foodlistid'] = $foodids;
+				$row['foodlist'] = $foodids;
 				echo (json_encode($row));
 			}
 			break;
 		case "ORDERED_FOOD_LIST":
-			$res = $connection -> query("SELECT entryno, case when tableno is null then concat('Phone no: ', customer.customerphoneno) else concat('Table no: ', cast(tableno as char)) end as orderinfo, food.foodname, ordering.orderdate ,orderlist.orderQuantity, orderlist.preparedQuantity FROM `ordering`, orderlist, food, customer where customer.customerid = ordering.customerid and food.foodid = orderlist.foodid and ordering.orderid = orderlist.orderid and ((`ordering`.`orderpickuptime` is null and ordering.orderid not in (select orderid from receipt)) or (`ordering`.`tableno` is null and ordering.orderid in (select orderid from receipt))) and orderlist.orderStatus != 'Prepared' and entryno > " . $queries['last_entry_no'] . " order by orderdate ASC");
+			$res = $connection -> query("SELECT entryno, case when tableno is null then concat('Phone no: ', customer.customerphoneno) else concat('Table no: ', cast(tableno as char)) end as orderinfo, food.foodname, ordering.orderdate ,orderlist.orderQuantity FROM `ordering`, orderlist, food, customer where customer.customerid = ordering.customerid and food.foodid = orderlist.foodid and ordering.orderid = orderlist.orderid and ((ordering.orderid not in (select orderid from receipt)) or (`ordering`.`tableno` is null and ordering.orderid in (select orderid from receipt))) and orderlist.orderStatus != 'Prepared' and entryno > " . $queries['last_entry_no'] . " order by orderdate ASC");
 			$rows = [];
 			while($row = $res -> fetch_assoc())
 				array_push($rows, $row);

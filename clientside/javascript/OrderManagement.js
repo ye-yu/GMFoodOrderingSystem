@@ -13,7 +13,7 @@ function preparingFood(eno)
 	sendRequest(
 		'POST',
 		'entry_no=' + eno + "&status=Preparing",
-		'http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/serverside/php/order.php?action=UPDATE_ORDER',
+		'http://' + document.location.host + '/dashboard/workspace/SEF1819/GMFoodOrderingSystem/serverside/php/order.php?action=UPDATE_ORDER',
 		function(a){
 			console.log(a);
 		}
@@ -33,7 +33,7 @@ function donePreparingFood(eno)
 	sendRequest(
 		'POST',
 		'entry_no=' + eno + "&status=Prepared",
-		'http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/serverside/php/order.php?action=UPDATE_ORDER',
+		'http://' + document.location.host + '/dashboard/workspace/SEF1819/GMFoodOrderingSystem/serverside/php/order.php?action=UPDATE_ORDER',
 		function(a){
 			console.log(a);
 		}
@@ -55,7 +55,7 @@ function servetable(ele, tno)
 	sendRequest(
 		'POST',
 		'table_no=' + tno,
-		'http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/serverside/php/table.php?action=QUEUE',
+		'http://' + document.location.host + '/dashboard/workspace/SEF1819/GMFoodOrderingSystem/serverside/php/table.php?action=QUEUE',
 		function(a){
 			console.log(a);
 		}
@@ -79,32 +79,13 @@ function resetInterval()
 		sendRequest(
 			'GET',
 			'',
-			'http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/serverside/php/order.php?request=ORDERED_FOOD_LIST',
+			'http://' + document.location.host + '/dashboard/workspace/SEF1819/GMFoodOrderingSystem/serverside/php/order.php?request=ORDERED_FOOD_LIST',
 			function(a){
 				orderandfoodlist = JSON.parse(a);
 			}
 		);
 	}, 5000);
 }
-/*
-function isInPreparingAndRemove(oid, fid, qty)
-{
-	var result = new Tuple(false, false);
-	for(let i = 0; i < preparing.length; i++)
-	{
-		if(preparing[i].x = oid && preparing[i].y = fid)
-		{
-			result.x = true;
-			if(parseInt(preparing[i].z) < parseInt(qty))
-			{
-				preparing.splice(i, 1);
-				result.y = true;
-			}
-			return result;
-		}
-	}
-	return result;
-}*/
 
 function updatefoodlist()
 {
@@ -118,24 +99,6 @@ function updatefoodlist()
 		stg += '<td width="21%">' + orderandfoodlist[i].orderdate + '</td>';
 		stg += '<td width="21%">' + orderandfoodlist[i].orderinfo + '</td>';
 		stg += '<td width="23%"><button class="preparing-btn" id="p' + orderandfoodlist[i].entryno + '" onclick="preparingFood(\'' + orderandfoodlist[i].entryno + '\');">Preparing ' + orderandfoodlist[i].orderQuantity + '</button><button id="d' + orderandfoodlist[i].entryno + '" class="deliver-btn" disabled onclick="donePreparingFood(\'' + orderandfoodlist[i].entryno + '\');">Done Preparing</button></td>';
-
-		/*
-		if(isDone)
-			stg += '<td width="21%" style="background-color: #a9dea9;">' + orderandfoodlist[i].orderinfo + '</td>';
-		else	
-			stg += '<td width="21%">' + orderandfoodlist[i].orderinfo + '</td>';
-		if(isDone) //it is inside done
-		{
-			if(orderandfoodlist[i].orderinfo.split(" ")[0] === "Table")
-				stg += '<td><span style=margin:5px>Deliver to Table</span><button class="remove-order-btn">Remove</button></td>';
-			else
-				stg += '<td><span style=margin:5px>Wrap the Food</span><button class="remove-order-btn">Remove</button></td>';
-		}
-		else if(checkEntry(preparing, orderandfoodlist[i].entryno)) //it is inside preparing
-			stg += '<td width="23%"><button class="preparing-btn" id="p' + orderandfoodlist[i].entryno + '" style="background-color: #ddefaa;" disabled>Preparing ' + orderandfoodlist[i].orderQuantity + '</button><button id="d' + orderandfoodlist[i].entryno + '" class="deliver-btn" onclick="donePreparingFood(\'' + orderandfoodlist[i].entryno + '\');">Done Preparing</button></td>';
-		else
-			stg += '<td width="23%"><button class="preparing-btn" id="p' + orderandfoodlist[i].entryno + '" onclick="preparingFood(\'' + orderandfoodlist[i].entryno + '\');">Preparing ' + orderandfoodlist[i].orderQuantity + '</button><button id="d' + orderandfoodlist[i].entryno + '" class="deliver-btn" disabled onclick="donePreparingFood(\'' + orderandfoodlist[i].entryno + '\');">Done Preparing</button></td>';
-		*/
 		stg += '</tr>';
 	}
 	document.getElementById('showfoodlisthere').innerHTML += stg;
@@ -186,8 +149,9 @@ function refreshRequest()
 	sendRequest(
 		'GET',
 		'',
-		'http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/serverside/php/order.php?request=ORDERED_FOOD_LIST&last_entry_no=' +  lastentryno,
+		'http://' + document.location.host + '/dashboard/workspace/SEF1819/GMFoodOrderingSystem/serverside/php/order.php?request=ORDERED_FOOD_LIST&last_entry_no=' +  lastentryno,
 		function(a){
+			console.log(a);
 			orderandfoodlist = JSON.parse(a);
 			for(let i = 0; i < orderandfoodlist.length; i++)
 			{
@@ -201,7 +165,7 @@ function refreshRequest()
 	sendRequest(
 		'GET',
 		'',
-		'http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/serverside/php/table.php?request=WAITER',
+		'http://' + document.location.host + '/dashboard/workspace/SEF1819/GMFoodOrderingSystem/serverside/php/table.php?request=WAITER',
 		function(a){
 			waitinglist = JSON.parse(a);
 			updatetablelist();
