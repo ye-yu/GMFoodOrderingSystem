@@ -112,6 +112,7 @@ body
 .thumbnail img
 {
 	height: 250px;
+	width: 375px;
 }
 
 .thumbnail
@@ -231,7 +232,7 @@ function toTakeAway()
     <div class="container-fluid">
       <div class="navbar-header">
         <!-- <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar1"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button> -->
-        <a class="navbar-brand" href="http://disputebills.com"><img src="http://placehold.it/432x80&text=Logo" alt="logo"> </a>
+        <a class="navbar-brand"><img src="assets/logo.PNG" alt="logo"> </a>
         <h3 class="navbar-text">ABC Restaurant</h3>
       </div>
       <!--/.nav-collapse --> 
@@ -355,9 +356,9 @@ function toTakeAway()
 		}
 	);
   </script>
-    <div class="item active"> <img src="http://placehold.it/1200x360&text=image1" alt="Los Angeles" style="width:100%;"> </div>
-    <div class="item"> <img src="http://placehold.it/1200x360&text=image2" alt="Chicago" style="width:100%;"> </div>
-    <div class="item"> <img src="http://placehold.it/1200x360&text=image3" alt="New york" style="width:100%;"> </div>
+    <!-- <div class="item active"> <img src="http://placehold.it/1200x360&text=image1" alt="Los Angeles" style="width:100%;"> </div> -->
+    <!-- <div class="item"> <img src="http://placehold.it/1200x360&text=image2" alt="Chicago" style="width:100%;"> </div> -->
+    <!-- <div class="item"> <img src="http://placehold.it/1200x360&text=image3" alt="New york" style="width:100%;"> </div> -->
   </div>
   
   <!-- Left and right controls --> 
@@ -369,7 +370,7 @@ function toTakeAway()
 sendRequest(
 	'GET',
 	'',
-	'http://localhost:11111/dashboard/workspace/SEF1819/GMFoodOrderingSystem/serverside/php/order.php?request=FOOD&food_id=ALL',
+	'http://' + document.location.host + '/dashboard/workspace/SEF1819/GMFoodOrderingSystem/serverside/php/order.php?request=FOOD&food_id=ALL',
 	function(a)
 	{
 		let foods = JSON.parse(a);
@@ -380,6 +381,8 @@ sendRequest(
 			div.className = 'thumbnail';
 			if (food.foodimagelink == null)
 				food.foodimagelink = 'https://1.bp.blogspot.com/-DSFD2AhX4oE/WTbHFo7uPpI/AAAAAAAA_-E/c2zBDzH3dnYvys_cJ26RLM8eQL1qtrOgwCKgB/s1600/IMG_2581.JPG';
+			else
+				food.foodimagelink = "assets/foods/" + food.foodimagelink;
 			div.innerHTML = ' <img src=' + food.foodimagelink + '> <div class="caption"> <p>' + food.foodname + ' (RM' + food.foodprice +') </p> </div>';
 			document.getElementById('our-foods').appendChild(div);
 		}

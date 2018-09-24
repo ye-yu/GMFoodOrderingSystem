@@ -1,0 +1,266 @@
+body
+{
+  width: 100%;
+}
+
+#haha
+{
+  color: blue;
+  text-decoration: underline;
+}
+
+input, button, select, textarea{
+  margin: 5px 2px;
+  border-radius: 5px;
+  border-style: solid;
+  border-width: 1px;
+  padding: 3px 10px;
+}
+
+input[type=button]:hover, button:hover, .button:hover
+{
+  background-color: #dddddd;
+}
+
+input[type=file]
+{
+  border-style: none;
+}
+.login-header
+{
+  font-size: 24pt;
+}
+
+#login-page-content
+{
+  margin: 0 10%;
+}
+
+.login-form
+{
+  margin: 0 3%;
+}
+
+.add-header,.view-header,.feedback-header
+{
+  font-size: 22pt;
+  margin: 0;
+  padding-left: 5px;
+}
+
+#menu-upload
+{
+  overflow-y: auto;
+  height: 600px;
+  padding-left: 2%;
+}
+
+.btn-list
+{
+  padding-top: 10px;
+  background-color: #eeeefe;
+  border-right-style: solid;
+  border-left-style: solid;
+  border-width: 1px;
+  border-color: cadetblue;
+  
+}
+
+.btn-list button
+{
+  display: block;
+  width: 100%;
+  text-align: left;
+  margin: 10px 0;
+  background-color: white;
+  border: none;
+  border-radius: 0;
+  border-left-style: solid;
+  border-left-width: 8px;
+  border-left-color: cadetblue;
+}
+
+.btn-list button:hover
+{
+  background-color: #eeeeee;
+}
+
+#task{
+}
+
+.add-caption
+{
+  font-size: 10pt;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: lightgray;
+}
+
+#menu-mgmt-page input[type=text], #menu-mgmt-page input[type=number], #menu-mgmt-page textarea
+{
+  width: 95%;
+}
+
+#pg-title{
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: lightgray;
+}
+
+.button-actions
+{
+  font-size: 18pt;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: lightgray;
+}
+
+.form-caption
+{
+  font-style: italic;
+  font-size: 8pt;
+}
+
+textarea
+{
+  resize: none;
+}
+
+input:disabled
+{
+  background-color: #eaedda;
+  border-color: darkgray;
+}
+
+.edit-header, .remove-header
+{
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: lightgray;
+  padding: 10px 15px;
+  font-size: 22pt;
+  text-align: left;
+}
+
+.modal form
+{
+  padding: 0 10px;
+}
+
+.modal form input, .modal form  textarea
+{
+  display: block;
+  width: 200%;
+}
+
+.view-header select
+{
+  font-size: 12pt;
+}
+
+.food-container
+{
+  height: 600px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.food-record
+{
+  display: block;
+  height: 80px;
+  width: 98%;
+  margin: 0 5px 3px;
+  border-bottom-style: dashed;
+  border-bottom-width: 1px;
+  border-bottom-color: gray;
+}
+
+.food-record img
+{
+  width: 100px;
+  height: 80px;
+  float: left;
+  overflow:hidden;
+}
+
+.food-record p
+{
+  margin: 3px 5px;
+  margin-left: 15px;
+}
+
+.food-record button
+{
+  padding: 2px 10px; 
+  font-size: 10pt;
+  border-radius: 0px;
+  border-width: 0px;
+  border-bottom-width: 3px;
+}
+
+.food-record .view-food
+{
+  margin-left: 25px;
+  background-color: #f4fcae;
+  border-bottom-color: #d4db92;
+}
+
+.food-record .remove-food
+{
+  background-color: #fcddae;
+  border-bottom-color: #dbbe92;
+}
+
+.food-record button:hover
+{
+  background-color: #eeeeee;
+  border-bottom-color: #aaaaaa;
+}
+
+.food-record:hover
+{
+  background-color: #eeeeee;
+}
+
+.feedback-section
+{
+  height: 570px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.feedback-title
+{
+  font-size: 15pt;
+}
+
+.feedback-content
+{
+  margin-left: 5px;
+}
+
+.feedback-row
+{
+  display: block;
+  width: 98%;
+  margin: 0 5px 3px;
+  border-bottom-style: dashed;
+  border-bottom-width: 1px;
+  border-bottom-color: gray;
+}
+
+.feedback-review blockquote
+{
+  padding: 0 15px;
+}
+
+blockquote {
+  background: #f9f9f9;
+  border-left: 5px solid #ccc;
+  margin: 10px;
+  padding: 0.5em 10px;
+  quotes: "\201C""\201D""\2018""\2019";
+}

@@ -122,7 +122,7 @@ if(isset($queries['request']))
 					{
 						$row[$rows['foodtype']] = [];
 					}
-					$res = $connection -> query("SELECT * FROM `food`");
+					$res = $connection -> query("SELECT * FROM `food` where showfood = true");
 					while($rows = $res -> fetch_assoc())
 					{
 						array_push($row[$rows['foodtype']], $rows);
@@ -130,7 +130,7 @@ if(isset($queries['request']))
 				}
 				else
 				{
-					$res = $connection -> query("select * from food");
+					$res = $connection -> query("select * from food where showfood = true");
 					$row = [];
 					while($rows = $res -> fetch_assoc())
 					{

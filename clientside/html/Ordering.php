@@ -94,25 +94,6 @@ line height is 20px by default so add 30px top and bottom to equal the new .navb
 	margin-top: 30px;
 }
 }
-
-/* Set height of the grid so .sidenav can be 100% (adjust if needed) */
-    .row.content {height: 1500px}
-    
-    /* Set gray background color and 100% height */
-    .sidenav {
-      background-color: #f1f1f1;
-      height: 100%;
-    }
-      
-    
-    /* On small screens, set height to 'auto' for sidenav and grid */
-    @media screen and (max-width: 767px) {
-      .sidenav {
-        height: auto;
-        padding: 15px;
-      }
-      .row.content {height: auto;} 
-    }	
 </style>		
 </head>
 <body>
@@ -121,8 +102,8 @@ line height is 20px by default so add 30px top and bottom to equal the new .navb
     <div class="container-fluid">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar1"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-        <a class="navbar-brand" href="#"><img src="http://placehold.it/432x80&text=Logo" alt="logo"> </a>
-        <h3 class="navbar-text">Restaurant Name</h3>
+        <a class="navbar-brand"><img src="dashboard/workspace/SEF1819/GMFoodOrderingSystem/clientside/html/assets/logo.PNG" alt="logo"> </a>
+        <h3 class="navbar-text">ABC Restaurant</h3>
       </div>
 
       <!--/.nav-collapse --> 
@@ -137,41 +118,8 @@ line height is 20px by default so add 30px top and bottom to equal the new .navb
 		<div class="col-sm-3 sidenav">   
 			<br>
 			<form>		
-				<h2>Select category:</h2>
-				<!-- <div class="radio">
-					<label><input type="radio" name="sel_by" checked>Category</label>
-				</div>
-				<div class="radio">
-					<label><input type="radio" name="sel_by">Combo by price range</label>
-				</div>
-				<div class="form-inline">
-					<div class="form-group">
-						<label for="price">RM:</label>
-						<input type="text" class="form-control" id="price">
-					</div>  
-				</div>
-				<p><b>Include:</b></p>
-				<span id="food-category">
-					<div class="checkbox">
-						<label><input type="checkbox" value="">Western Food</label>
-					</div>
-					<div class="checkbox">
-						<label><input type="checkbox" value="">Eastern Food</label>
-					</div>
-					<div class="checkbox">
-						<label><input type="checkbox" value="">Canned Drink</label>
-					</div>
-					<div class="checkbox">
-						<label><input type="checkbox" value="">Beverages</label>
-					</div>
-					<div class="checkbox">
-						<label><input type="checkbox" value="">Add-ons</label>
-					</div>
-				</span> -->
+				<h2 class="category-header">Select category:</h2>
 				<ul class="category-list" id="category-list">
-					<a><li>Food Category</li></a>
-					<a><li>Food Category</li></a>
-					<a><li>Food Category</li></a>
 				</ul>
 			</form>		
 		</div>
@@ -184,9 +132,6 @@ line height is 20px by default so add 30px top and bottom to equal the new .navb
 				   <span id="selected-category" style="font-size: 20pt;">
 				   </span>
 				</div>
-				<!-- <div class="col-md-6 text-right" style="padding-top: 30px;">    		    -->
-					<!-- <button type="button" class="btn btn-lg">My Cart <span class="badge">0</span></button> -->
-				<!-- </div> -->
         <div class="col-md-6 text-right" style="padding-top: 30px;">    		   
 			<button type="button" class="btn btn-lg" data-toggle="modal" data-target="#mycartModal" onclick="updateCartFoodList();">My Cart <span class="badge" id="cart-count">0</span></button>
 			 <!-- Modal -->
@@ -215,7 +160,7 @@ line height is 20px by default so add 30px top and bottom to equal the new .navb
 						</div>
 						<div class="modal-footer">
 						  <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-						  <button type="button" class="btn btn-default" onclick="placeOrder();">Place Order</button>						  
+						  <button type="button" id="place-order-btn" class="btn btn-default" onclick="placeOrder();" disabled />Place Order</button>						  
 						</div>
 					  </div>
 
@@ -224,7 +169,7 @@ line height is 20px by default so add 30px top and bottom to equal the new .navb
     	</div>
 		  </div>
 		</div>
-		<div id="ordering-content" style="overflow-y: scroll;">
+		<div id="ordering-content">
 		<!-- dynamic listing starts here -->
 			<div class="container-fluid bg-3 text-center">
 			  <div class="row">

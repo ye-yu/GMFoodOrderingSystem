@@ -1,3 +1,24 @@
+
+/* Set height of the grid so .sidenav can be 100% (adjust if needed) */
+    .row.content {height: 1500px}
+    
+    /* Set gray background color and 100% height */
+    .sidenav {
+      background-color: #eeeefe;
+      height: 100%;
+      border-right: 1px solid blue;
+    }
+      
+    
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height: auto;} 
+    }	
+
 body
 {
   overflow-x:hidden;
@@ -5,18 +26,18 @@ body
 
 #ordering-content
 {
-  background-color: #eeeeee;
-  border-radius: 10px;
+  background-color: #eeeffa;
+  position: absolute;
+  margin-top: 14px;
   padding: 15px 0;
-  position:absolute;
-  height: 750%;
   width: 100%;
+  height: 578px;
+  overflow-y:  scroll;
 }
 
 form
 {
-  padding: 0 35px 250px;
-  height: 600px;
+  height: 630px;
 }
 
 .cartFoodList
@@ -40,18 +61,18 @@ form
 
 ul.category-list a
 {
-  font-size: 14pt;
+  font-size: 12pt;
 }
 
 ul.category-list li
 {
   list-style-position: inside;
   list-style-type: disclosure-closed;
-  background-color: #fafafa;
+  background-color: #ffffff;
+  border-left-style: solid;
   margin-left: -20px;
   margin-top: 10px;
   padding: 10px 15px;
-  border-radius: 15px;
 }
 
 .thumbnail
@@ -63,14 +84,43 @@ ul.category-list li
 .thumbnail .caption
 {
   position: absolute;
-  bottom: -35%;
   left: 0;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
   width: 100%;
+  background-color: white;
+}
+
+.caption-category
+{
+  bottom: -15%;
+  height: 50px;
+}
+
+.caption-food
+{
+  bottom: -35%;
   height: 100px;
 }
 
+.category-header
 {
-  
+  padding-left: 10px;
+  padding-bottom: 10px;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: lightgrey;
+  font-size: 18pt;
+}
+
+.navbar
+{
+  margin: 0;
+}
+
+.category-name
+{
+  font-size: 12pt;
+  bottom: 0;
+  overflow: hidden;
 }

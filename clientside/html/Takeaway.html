@@ -11,6 +11,10 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <style>
+body
+{
+    overflow-x: hidden;
+}
 /**********************************
 Responsive navbar-brand image CSS
 - Remove navbar-brand padding for firefox bug workaround
@@ -230,6 +234,7 @@ var orders  = {};
 var customer = new Customer();
 function showOrderSummary()
 {
+	$('#order-summary').empty();
 	orders = JSON.parse(localStorage.getItem("orders"));
 	foodids = Object.keys(orders);
 	var total = 0;
@@ -297,13 +302,8 @@ function placeOrder()
     <div class="container-fluid">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar1"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-        <a class="navbar-brand" href="http://disputebills.com"><img src="http://placehold.it/432x80&text=Logo" alt="logo"> </a>
-        <h3 class="navbar-text">Restaurant Name</h3>
-      </div>
-      <div id="navbar1" class="navbar-collapse collapse">
-        <ul class="nav navbar-nav navbar-right">
-          <li class="active"><a href="1.html">Home</a></li>
-        </ul>
+        <a class="navbar-brand"><img src="dashboard/workspace/SEF1819/GMFoodOrderingSystem/clientside/html/assets/logo.PNG" alt="logo"> </a>
+        <h3 class="navbar-text">ABC Restaurant</h3>
       </div>
       <!--/.nav-collapse --> 
     </div>

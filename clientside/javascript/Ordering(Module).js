@@ -34,10 +34,8 @@ function showFoodByCategory(category)
 		}
 		string += '<div class="col-sm-4">';
 		string += '  <div class="thumbnail">        ';
-		if(foodlist[i].foodimagelink == null)
-			foodlist[i].foodimagelink = 'https://i.hungrygowhere.com/cms/f3/01/83/e8/163650/western-subang-default2.jpg';
-		string += '  <img src="' + foodlist[i].foodimagelink + '" alt="" style="width:300px; height: 200px;">';
-		string += '  <div class="caption" style="background-color: lightgrey">';
+		string += '  <img src="http://' + document.location.host + '/dashboard/workspace/SEF1819/GMFoodOrderingSystem/clientside/html/assets/foods/' + foodlist[i].foodimagelink + '" alt="" style="width:300px; height: 200px;">';
+		string += '  <div class="caption  caption-food">';
 		string += '<p>' + foodlist[i].foodname + ' -- RM' + foodlist[i].foodprice +'</p>';
 		string += '  <div class="form-inline">';
 		string += '  <div class="form-group">';
@@ -60,7 +58,7 @@ function showFoodByCategory(category)
 		string += '<div class="modal-body">';
 		string += '  <div class="row">';
 		string += '<div class="col-sm-4">';
-		string += '<img src="' + foodlist[i].foodimagelink + '" style="width:100%;" class="img-rounded" alt="">';
+		string += '<img src="http://' + document.location.host + '/dashboard/workspace/SEF1819/GMFoodOrderingSystem/clientside/html/assets/foods/' + foodlist[i].foodimagelink + '" style="width:100%;" class="img-rounded" alt="">';
 		string += '</div>';
 		string += '<div class="col-sm-8 text-left">';
 		string += '<p>' + foodlist[i].foodname + '</p>';
@@ -119,11 +117,9 @@ function showFoodCategory()
 		string += '<a onclick="showFoodByCategory(\'' + categories[i] + '\')">';
 		string += '<div class="col-sm-4">';
 		string += '  <div class="thumbnail">        ';
-		if(foodsByCategory[categories[i]][0].foodimagelink == null)
-			foodsByCategory[categories[i]][0].foodimagelink = 'https://i.hungrygowhere.com/cms/f3/01/83/e8/163650/western-subang-default2.jpg';
-		string += '  <img src="' + foodsByCategory[categories[i]][0].foodimagelink +'" alt="" style="width:300px; height: 200px;">';
-		string += '  <div class="caption" style="background-color: lightgrey">';
-		string += '<p>' + categories[i] + '</p>';
+		string += '  <img src="http://' + document.location.host + '/dashboard/workspace/SEF1819/GMFoodOrderingSystem/clientside/html/assets/foods/' + foodsByCategory[categories[i]][0].foodimagelink +'" alt="" style="width:300px; height: 200px;">';
+		string += '  <div class="caption caption-category">';
+		string += '<p class="category-name">' + categories[i] + '</p>';
 		string += '  </div>        ';
 		string += '  </div>';
 		string += '</div>';
@@ -167,6 +163,13 @@ function updateCartFoodList()
 	var total = 0;
 	document.getElementById('cartFoodList').innerHTML = '';
 	var foodids = Object.keys(cart);
+	if(foodids.length == 0)
+	{
+		$('#place-order-btn').prop("disabled", true);
+		document.getElementById('cart-total').innerHTML = round(total, 2);
+		document.getElementById('cartFoodList').innerHTML = "Cart is Empty!";
+		return;
+	}
 	for(let i = 0; i < foodids.length; i++)
 	{
 		var food = cart[foodids[i]];
@@ -176,6 +179,7 @@ function updateCartFoodList()
 		total += parseFloat(food.foodprice) * parseInt(food.foodquantity);
 		document.getElementById('cartFoodList').innerHTML += string;
 	}
+	$('#place-order-btn').prop("disabled", false);
 	document.getElementById('cart-total').innerHTML = round(total, 2);
 }
 
