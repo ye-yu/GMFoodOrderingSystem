@@ -22,7 +22,7 @@ if(isset($_SERVER['QUERY_STRING']))
 if(isset($queries['request']))
 {
 	//print_r($connection);
-	makeConnection($_SESSION['username'], $_SESSION['password']);
+	makeConnection('customer', '');
 	switch($queries['request'])
 	{
 		case "LOGOUT":
